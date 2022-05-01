@@ -1,0 +1,268 @@
+#!/bin/bash
+
+export PATH="/media/bin:$PATH"
+
+# Let's start by stopping some stuff which is in our way
+killall ui_menu
+killall sonyapp
+killall auto_dimmer
+killall power_manage
+killall start_pman
+kill -STOP $(ps | grep usb_watch | head -1 | awk '{ print $1 }')
+kill -STOP $(ps | grep power_manage | head -1 | awk '{ print $1 }')
+
+
+# Open a Weston terminal and let's redirect all output to it so people can see what's happening
+weston-terminal -f &
+sleep 1
+exec 1>/dev/pts/0
+echo ""
+
+# Greetings!
+echo ""
+echo "* * * Welcome to the Debian on Playstation Classic installer! * * *"
+echo ""
+echo "This software comes with ABSOLUTELY NO WARRANTY, to the extent permitted by applicable law."
+echo ""
+sleep 5
+
+# Boot to Debian routine
+if (( `ls /media | grep -i boot | wc -l` > 0 ))
+then
+    echo "I've found a file or folder named BOOT, so I'll just reboot you into Debian!"
+    echo ""
+    ddrescue --force /media/kernel/debian.img /dev/mmcblk0p1
+    echo ""
+    echo "Done! Remember to unplug this USB drive *after* the Playstation Classic reboots!"
+    echo "Rebooting in 15 seconds"    
+    sleep 15
+    reboot
+fi
+
+# Restore routine
+if (( `ls /media | grep -i restore | wc -l` > 0 ))
+then
+    echo "I've found a file or folder named RESTORE, so I'll restore your Playstation Classic back to stock!"
+    echo ""
+    echo "If this process goes wrong, it means that you don't have a proper backup on your USB drive and you're basically screwed."
+    echo "if that's the case, you'll still be able to play games through Project Eris, but your original games are basically"
+    echo "gone forever, so you'll have to provide the games yourself."
+    echo ""
+    sleep 15
+    echo "Restoring original kernel..."
+    sleep 5
+    echo ""
+    ddrescue --force /media/backup/kernel/orig_kernel.img /dev/mmcblk0p1
+    if (( $? > 0 ))
+    then
+        echo ""
+        echo "Something went wrong when trying to restore your original kernel. Has your original backup gone bad?"
+        echo "I'll flash a Debian kernel which will still boot into your stock Playstation Classic."
+        sleep 10
+        echo ""
+        ddrescue --force /media/kernel/psc.img /dev/mmcblk0p1
+        echo ""
+    fi
+    echo "Done."
+    echo ""
+    echo "Deleting your Debian installation to replace it with your original games."
+    echo ""
+    sleep 5
+    umount /gaadata
+    mkfs.ext4 -N 2048 /dev/mmcblk0p9
+    mount -o rw /dev/mmcblk0p9 /gaadata
+    echo ""
+    echo "Done"
+    echo ""
+    echo "Restoring the games..."
+    sleep 5
+    echo ""
+    cp -va /media/backup/gaadata/* /gaadata
+    if (( $? > 0 )) || (( `df | grep gaadata | awk '{ print $4 }'` > 10000000 ))
+    then
+        echo "Something went wrong when trying to restore your games. Has your original backup gone bad?"
+        echo ""
+        echo "This is really bad. You've lost your original internal games. Not the end of the world, though."
+        echo "I strongly recommend you to install Project Eris which will allow you to still play games on original firmware,"
+        echo "you'll just have to provide the games yourself."
+        echo "This is the end of the road here, though."
+        echo "Your Debian installation has been erased and you don't have your original games, so you can just power off your"
+        echo "Playstation Classic now. When you turn it back on, it will boot to the original firmware where you won't have any games,"
+        echo "but you can still install Project Eris and save the day."
+        echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
+        echo ""
+        echo "I'll now copy over some files which are essential for the original firmware to boot properly."
+        echo ""
+        cp -va /media/backup/databases /gaadata
+        sync
+        echo ""
+        echo "Done."
+        echo ""
+        echo "You can power off now."
+        sleep 365d
+    fi
+    sync
+    echo ""
+    echo "All good! You can safely power off now and when you power on you'll be back in your stock Playstation Classic."
+    sleep 365d
+fi
+
+# Regular routine
+echo "*******************************************************************************************"
+echo "* WARNING: ALL YOUR GAMES WILL BE BACKED UP AND *ERASED* FROM THE PLAYSTATION CLASSIC     *"
+echo "* PRO-TIP: INSTALL PROJECT ERIS BEFORE THIS TO PLAY THEM FROM A USB DISK OR NETWORK SHARE *"
+echo "* YOU'LL BE ABLE TO RESTORE YOUR PLAYSTATION CLASSIC TO STOCK AT ANY POINT IN THE FUTURE  *"
+echo "*******************************************************************************************"
+echo ""
+echo "You can find more information at https://github.com/donluca"
+echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
+sleep 15
+echo ""
+echo "If you don't see anything happning on screen for longer than 10 minutes, it means something has gone wrong."
+echo "One of the most likely cause is that you're not using a powered USB hub or your USB drive needs too much power."
+echo "The installation process will take a long time, most likely more than 1 hour, depending on how fast your USB drive is."
+sleep 15
+
+# Check if the usb drive has enough free space
+echo ""
+echo "Let's check how much space free you have on your USB drive. 20GB or more are needed."
+echo ""
+if (( `df | grep sda | awk '{ print $4 }'` < 20000000 ))
+then
+    echo "You don't have enough space free on your USB drive (at least 20GB are needed)."
+    echo "Please poweroff your Playstation Classic and use a bigger USB drive or free enough space."
+    sleep 365d
+else
+    echo "You have enough free space, we can go to the next step."
+fi
+sleep 10
+
+# Backup all the relevant partitions and data
+echo ""
+echo "We're now going to backup all of your data, make sure to put this USB drive somewhere safe once we're done."
+sleep 5
+echo ""
+echo "Backing up your original kernel..."
+echo ""
+ddrescue /dev/mmcblk0p1 /media/kernel/orig_kernel.img
+if (( $? > 0 ))
+then
+    echo ""
+    echo "Something went wrong during the kernel backup process"
+    echo "To prevent screwing up your current installation, the process has been halted and no modifications have been made."
+    echo ""
+    echo "Please report this incident to the Github page at https://github.com/donluca"
+    echo "You can now safely power off your Playstation Classic."
+    sleep 365d
+fi
+sync
+echo ""
+echo "Backing up your game data (this is going to take a while)..."
+sleep 5
+echo ""
+cp -va /gaadata/* /media/backup/gaadata/
+if (( $? > 0 ))
+then
+    echo ""
+    echo "Something went wrong during the game backup process"
+    echo "To prevent screwing up your current installation, the process has been halted and no modifications have been made."
+    echo ""
+    echo "Please report this incident to the Github page at https://github.com/donluca"
+    echo "You can now safely power off your Playstation Classic."
+    sleep 365d
+fi
+sync
+echo ""
+echo "Backup completed!"
+sleep 5
+
+# Install kernel and Debian rootFS
+echo ""
+echo "It's time to install Debian along with its own kernel."
+echo "After this process has started you can't stop it. If you're having second thoghts, now it's the time to power off."
+sleep 12
+echo ""
+echo "Alright, let's install the kernel first:"
+echo ""
+ddrescue --force /media/kernel/debian.img /dev/mmcblk0p1
+if (( $? > 0 ))
+then
+    echo "Something went wrong when trying to flash the Debian kernel."
+    echo "To prevent screwing up your current installation, the process has been halted and your original kernel is going to be restored."
+    sleep 10
+    echo ""
+    ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
+    echo ""
+    echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca"
+    echo "You can now safely power off your Playstation Classic."
+    echo ""
+    sleep 365d
+fi
+echo ""
+echo "Custom kernel installed!"
+sleep 5
+echo ""
+echo "It's time to erase the games to make space for Debian."
+sleep 5
+echo ""
+umount /gaadata
+if (( $? > 0 ))
+then
+    echo "Something went wrong when trying to unmount your gaadata partition."
+    echo "To prevent screwing up your current installation, the process has been halted and your original kernel is going to be restored."
+    sleep 10
+    echo ""
+    ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
+    echo ""
+    echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca"
+    echo "You can now safely power off your Playstation Classic."
+    echo ""
+    sleep 365d
+fi
+mkfs.ext4 /dev/mmcblk0p9
+if (( $? > 0 ))
+then
+    echo "Something went wrong when trying to format your gaadata partition."
+    echo "To prevent screwing up your current installation, the process has been halted and your original kernel is going to be restored."
+    sleep 10
+    echo ""
+    ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
+    echo ""
+    echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca"
+    echo "You can now safely power off your Playstation Classic."
+    echo ""
+    sleep 365d
+fi
+mount -o rw /dev/mmcblk0p9 /gaadata
+echo ""
+echo "Now the big one: let's install Debian! This is going to take a VERY long time."
+echo ""
+sleep 10
+echo ""
+tar -xzvf /media/rootfs/PSCSid.tar.gz -C /gaadata
+cp -va /media/backup/gaadata/databases /gaadata
+cp -va /media/kernel/psc.img /gaadata
+echo ""
+echo "And we're done!"
+echo "If you wish to restore your Playstation Classic to stock, please create a file or folder named RESTORE at the root of this USB drive,"
+echo "poweroff your Playstation Classic and, when in Debian, choose reboot to PSC from the menu so you're back to the original firmware."
+echo "After you've rebooted into the orignal firmware, plug this USB drive and it will start the process to get your PSC back to stock."
+echo ""
+echo "If you accidentally chose to reboot from Debian to the original firmware and you don't have Project Eris installed, to boot back"
+echo "to Debian, create a file or folder named BOOT at the root of this USB drive and plug it in after original firmware has booted."
+echo ""
+echo "To boot both the oriignal firmware and Debian you need to install Project Eris and add to your Project Eris USB drive a couple of"
+echo "files which you can find in the project_eris folder of this USB drive. You need to copy the following files in those directories:"
+echo ""
+echo "From this USB drive /project_eris/004_debian.json  to the Project Eris USB Drive /project_eris/etc/boot_menu/boot_items"
+echo "From this USB drive /project_eris/DB.png  to the Project Eris USB Drive /project_eris/etc/project_eris/IMG"
+echo "From this USB drive /project_eris/DB_Hover.png  to the Project Eris USB Drive /project_eris/etc/project_eris/IMG"
+echo "From this USB drive /kernel/debian.img  to the Project Eris USB Drive /project_eris/kernel"
+echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
+echo ""
+echo "That's all!"
+echo "You can now safely power off your Playstation Classic. When you boot it up again, you'll be in Debian!"
+echo "The passwords set for Debian (both root and psclassic accounts) are psclassic. I strongly enourage you to change them ASAP!"
+echo ""
+echo "Enjoy!"
+sleep 365d
