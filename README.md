@@ -1,4 +1,6 @@
 # PSClassic-Debian
+This software comes with ABSOLUTELY NO WARRANTY, to the extent permitted by applicable law.
+
 Installer for Debian on the Sony Playstation Classic
 
 Use with care and be prepared for the worst (having your Playstation Classic with no games because a part of the script failed in stopping the installer process when something has gone wrong).
