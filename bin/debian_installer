@@ -107,6 +107,48 @@ then
     sleep 365d
 fi
 
+# Check if Debian is already installed
+if [[ -e "/gaadata/psc.img" ]]
+then
+    if (( `ls /media | grep -i force | wc -l` > 0 ))
+    then
+        echo "You have chosen to remove your current Debian installation and put a new, fresh one in its place."
+        echo ""
+        echo "Please make sure this is what you really want, because this process will destroy your Debian installation"
+        echo "by deleting everything in the /gaadata partition which is where your games were stored originally."
+        echo "If you have no idea what this means, you should probably not be doing this as you might still have your"
+        echo "original games inside your Playstation Classic and this process will erase them without backing them up."
+        echo ""
+        echo "On the other side, if you really know what you're doing, the process will start after a while (I've put a"
+        echo "60 seconds delay, so count one minute since this message has initially appeared)."
+        echo ""
+        sleep 60
+        echo "Ok, let's go. I'll start by unmounting the partition Debian is installed on and formatting it."
+        sleep 5
+        echo ""
+        umount /gaadata
+        mkfs.ext4 /dev/mmcblk0p9
+        echo ""
+        echo "Done formatting the partition, now I'll copy a fresh Debian installation over. This is going to take a while."
+        sleep 5
+        echo ""
+        tar -xzvf /media/rootfs/PSCSid.tar.gz -C /gaadata
+        cp -va /media/backup/gaadata/databases /gaadata
+        cp -va /media/kernel/psc.img /gaadata
+        sync
+        echo ""
+        echo "Finished re-installing Debian. You can now poweroff your Playstation Classic safely."
+        sleep 365d
+    fi
+    echo "It looks like Debian is already installed!"
+    echo "I won't go through the whole installation process again, but if you want to overwrite your Debian installation with"
+    echo "a new clean one, please create a file or folder named FORCE at the root of this USB drive and plug it in after original"
+    echo "firmware has booted."
+    echo ""
+    echo "You can now safely poweroff your Playstation Classic"
+    sleep 365d
+fi
+
 # Regular routine
 echo "*******************************************************************************************"
 echo "* WARNING: ALL YOUR GAMES WILL BE BACKED UP AND *ERASED* FROM THE PLAYSTATION CLASSIC     *"
@@ -114,7 +156,7 @@ echo "* PRO-TIP: INSTALL PROJECT ERIS BEFORE THIS TO PLAY THEM FROM A USB DISK O
 echo "* YOU'LL BE ABLE TO RESTORE YOUR PLAYSTATION CLASSIC TO STOCK AT ANY POINT IN THE FUTURE  *"
 echo "*******************************************************************************************"
 echo ""
-echo "You can find more information at https://github.com/donluca"
+echo "You can find more information at https://github.com/donluca/PSClassic-Debian"
 echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
 sleep 15
 echo ""
@@ -151,7 +193,7 @@ then
     echo "Something went wrong during the kernel backup process"
     echo "To prevent screwing up your current installation, the process has been halted and no modifications have been made."
     echo ""
-    echo "Please report this incident to the Github page at https://github.com/donluca"
+    echo "Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
     echo "You can now safely power off your Playstation Classic."
     sleep 365d
 fi
@@ -167,7 +209,7 @@ then
     echo "Something went wrong during the game backup process"
     echo "To prevent screwing up your current installation, the process has been halted and no modifications have been made."
     echo ""
-    echo "Please report this incident to the Github page at https://github.com/donluca"
+    echo "Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
     echo "You can now safely power off your Playstation Classic."
     sleep 365d
 fi
@@ -193,7 +235,7 @@ then
     echo ""
     ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
     echo ""
-    echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca"
+    echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
     echo "You can now safely power off your Playstation Classic."
     echo ""
     sleep 365d
@@ -214,7 +256,7 @@ then
     echo ""
     ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
     echo ""
-    echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca"
+    echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
     echo "You can now safely power off your Playstation Classic."
     echo ""
     sleep 365d
@@ -228,7 +270,7 @@ then
     echo ""
     ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
     echo ""
-    echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca"
+    echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
     echo "You can now safely power off your Playstation Classic."
     echo ""
     sleep 365d
@@ -242,6 +284,7 @@ echo ""
 tar -xzvf /media/rootfs/PSCSid.tar.gz -C /gaadata
 cp -va /media/backup/gaadata/databases /gaadata
 cp -va /media/kernel/psc.img /gaadata
+sync
 echo ""
 echo "And we're done!"
 echo "If you wish to restore your Playstation Classic to stock, please create a file or folder named RESTORE at the root of this USB drive,"
@@ -253,6 +296,9 @@ echo "to Debian, create a file or folder named BOOT at the root of this USB driv
 echo ""
 echo "To boot both the oriignal firmware and Debian you need to install Project Eris and add to your Project Eris USB drive a couple of"
 echo "files which you can find in the project_eris folder of this USB drive. You need to copy the following files in those directories:"
+echo ""
+echo "If at some point you end up messing your Debian installation and want to install a new, fresh one,"
+echo "create a file or folder named FORCE at the root of this USB drive and plug it in after original firmware has booted."
 echo ""
 echo "From this USB drive /project_eris/004_debian.json  to the Project Eris USB Drive /project_eris/etc/boot_menu/boot_items"
 echo "From this USB drive /project_eris/DB.png  to the Project Eris USB Drive /project_eris/etc/project_eris/IMG"
