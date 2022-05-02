@@ -1,0 +1,5 @@
+{
+  "texture":"DB.png",
+  "hoverTexture":"DB_Hover.png",
+  "launchCommand":"dd if=/media/debian.img of=/dev/mmcblk0p1 && reboot"
+}
