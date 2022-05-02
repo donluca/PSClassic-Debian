@@ -34,7 +34,7 @@ If you're in desperate need of more RAM, you can try using zRAM to better manage
 ## How to install Debian
 - Did I already say that you'll lose your internal games, although those will be backed up so you can go back to stock at any time?
 - **YOUR GAME PARTITION WILL BE BACKED UP AND ERASED, YOU WON'T HAVE YOUR GAMES ON INTERNAL MEMORY ANYMORE BECAUSE THAT'S WHERE DEBIAN WILL LIVE IN YOUR PLAYSTATION CLASSIC. DESPITE THIS YOU'LL BE ABLE TO GO BACK TO STOCK AT ANY TIME (if everything went well)**
-- Download the latest Release available (left column) and make sure to download the file named "PSCDebian.zip" and **NOT THE SOURCE CODE** and **DO NOT DOWNLOAD BY CLONING THIS REPO OR GOING TO "CODE -> DOWNLOAD ZIP". IT WILL NOT WORK AND YOU'LL BRICK YOUR PLAYSTATION CLASSIC**
+- Download the latest Release available (right column) and make sure to download the file named "PSCDebian.zip" and **NOT THE SOURCE CODE** and **DO NOT DOWNLOAD BY CLONING THIS REPO OR GOING TO "CODE -> DOWNLOAD ZIP". IT WILL NOT WORK AND YOU'LL BRICK YOUR PLAYSTATION CLASSIC**
 - Format your USB drive as FAT32 and label it SONY. Afterwards, unzip the file you've just downloaded in the USB drive so that at the root you have the various folders such as backup, bin, kernel, etc. Again, they must be at the root of your USB drive. If at the root of your USB drive there's a folder and inside that folder there are all the other folders you see in this repo it will not work
 - Boot your Playstation Classic and wait until it reaches the main screen
 - Unplug all your USB devices (except for the power cable, of course – Capt. Obvious)
