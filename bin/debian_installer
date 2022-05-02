@@ -172,6 +172,10 @@ then
         cp -va /media/kernel/psc.img /gaadata
         sync
         echo ""
+        echo "It's time to flash the kernel to boot Debian."
+        sleep 5
+        ddrescue --force /media/kernel/debian.img /dev/mmcblk0p1
+        echo ""
         echo "Finished re-installing Debian. You can now poweroff your Playstation Classic safely."
         sleep 365d
     fi
