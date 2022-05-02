@@ -107,6 +107,38 @@ then
     sleep 365d
 fi
 
+# Regular routine
+echo "*******************************************************************************************"
+echo "* WARNING: ALL YOUR GAMES WILL BE BACKED UP AND *ERASED* FROM THE PLAYSTATION CLASSIC     *"
+echo "* PRO-TIP: INSTALL PROJECT ERIS BEFORE THIS TO PLAY THEM FROM A USB DISK OR NETWORK SHARE *"
+echo "* YOU'LL BE ABLE TO RESTORE YOUR PLAYSTATION CLASSIC TO STOCK AT ANY POINT IN THE FUTURE  *"
+echo "*******************************************************************************************"
+echo ""
+echo "You can find more information at https://github.com/donluca/PSClassic-Debian"
+echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
+sleep 15
+echo ""
+echo "If you don't see anything happning on screen for longer than 10 minutes, it means something has gone wrong."
+echo "One of the most likely cause is that you're not using a powered USB hub or your USB drive needs too much power."
+echo "The installation process will take a long time, most likely more than 1 hour, depending on how fast your USB drive is."
+
+# Check if the rootFS is present
+echo ""
+echo "Checking the integrity of the installer files (this may take a while)..."
+if [[ ! -e "/media/rootfs/PSCSid.tar.gz" ]] || [[ `sha1sum /media/rootfs/PSCSid.tar.gz` != "896cdcf05687993b23d877dd0cdb945607b39e74" ]]
+then
+    echo ""
+    echo "The files you've downloaded are corrupted or not valid."
+    echo ""
+    echo "Please format your USB drive, download the installer again from Github at"
+    echo "https://github.com/donluca/PSClassic-Debian/releases and make sure to download"
+    echo "the file named PSCDebian.zip"
+    echo "Do NOT clone the repository and do NOT download via Code -> Download ZIP, it will not work."
+    echo ""
+    echo "You can now power off your Playstation Classic safely"
+    sleep 365d
+fi
+
 # Check if Debian is already installed
 if [[ -e "/gaadata/psc.img" ]]
 then
@@ -146,37 +178,6 @@ then
     echo "firmware has booted."
     echo ""
     echo "You can now safely poweroff your Playstation Classic"
-    sleep 365d
-fi
-
-# Regular routine
-echo "*******************************************************************************************"
-echo "* WARNING: ALL YOUR GAMES WILL BE BACKED UP AND *ERASED* FROM THE PLAYSTATION CLASSIC     *"
-echo "* PRO-TIP: INSTALL PROJECT ERIS BEFORE THIS TO PLAY THEM FROM A USB DISK OR NETWORK SHARE *"
-echo "* YOU'LL BE ABLE TO RESTORE YOUR PLAYSTATION CLASSIC TO STOCK AT ANY POINT IN THE FUTURE  *"
-echo "*******************************************************************************************"
-echo ""
-echo "You can find more information at https://github.com/donluca/PSClassic-Debian"
-echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
-sleep 15
-echo ""
-echo "If you don't see anything happning on screen for longer than 10 minutes, it means something has gone wrong."
-echo "One of the most likely cause is that you're not using a powered USB hub or your USB drive needs too much power."
-echo "The installation process will take a long time, most likely more than 1 hour, depending on how fast your USB drive is."
-sleep 15
-
-# Check if the rootFS is present
-echo ""
-if [[ ! -e "/media/rootfs/PSCSid.tar.gz" ]] || [[ `sha1sum /media/rootfs/PSCSid.tar.gz` != "896cdcf05687993b23d877dd0cdb945607b39e74" ]]
-then
-    echo "The files you've downloaded are corrupted or not valid."
-    echo ""
-    echo "Please format your USB drive, download the installer again from Github at"
-    echo "https://github.com/donluca/PSClassic-Debian/releases and make sure to download"
-    echo "the file named PSCDebian.zip"
-    echo "Do NOT clone the repository and do NOT download via Code -> Download ZIP, it will not work."
-    echo ""
-    echo "You can now power off your Playstation Classic safely"
     sleep 365d
 fi
 
