@@ -4,7 +4,8 @@
 
 ## What is this?
 
-Got a Playstation Classic gathering dust somewhere in your room? Nice, you can now transform it in a fully fledged Debian Linux PC rocking the LXQt Desktop Environment!  
+Got a Playstation Classic gathering dust somewhere in your room?  
+Nice, you can now transform it in a fully fledged Debian Linux PC rocking the LXQt Desktop Environment!  
 The hardware in the Playstation Classic isn't half bad, the Mediatek MT8167 gives us 4 cores of ARM Cortex A35 which are right up the alley of a Raspberry Pi 3, along with 1GB or RAM and 16GB of eMMC which are both a bit limiting, but not the end of the world.  
 There's also a very capable GPU, but we don't talk about that here.
 
@@ -19,6 +20,7 @@ If you're in desperate need of more RAM, you can try using zRAM to better manage
 - **USB drivers are nearly unuseable:** they are so bad that you must be careful about using USB hubs and connecting several devices, otherwise the kernel will panic and the system will freeze. Some devices like USB Audio interfaces won't work properly or at all (at least the ones I have didn't), but, as far as I could tell, USB drives, ethernet/wireless dongles and bluetooth should all work fine. YMMV.
 - **Only 2 USB ports:** as said above, be mindful of connecting several devices through a USB hub.
 - **1080p max:** Considering that the stock firmware runs at 720p (and you can't change it), this is already an improvement. But this is also the max resolution the GPU supports. Don't try going further or you'll get a garbled screen.
+- **No framebuffer console support:** What this means is that you won't be able to see the boot process, the screen will be black and you won't have virtual terminals (don't try hitting CTRL+ALT+F<n> to try and switch to a virtual terminal because the system will freeze).
 - Finally... this is not something for the fainthearted. If you screw up, prepare to know how to access fastboot ( https://www.youtube.com/watch?v=o05HpHTwLuw ) to go to a recoverable state and flash back your original kernel. Bonus points if you're knowledgeable in Linux. If you're feeling scared at this point, messing around with this is probably not what you want to be doing.
 
 ## What do you need?
@@ -26,7 +28,7 @@ If you're in desperate need of more RAM, you can try using zRAM to better manage
 - (Optional, but highly recommended) Project Eris installed in your Playstation Classic. Without it you won't be able to go back and forth from Debian to stock firmware and viceversa. Most importantly, with Project Eris not having your games in the internal memory won't matter anymore bacause you can load them from anywhere (ie: USB drive, network share, etc.). For more information about Project Eris and how to install it go here: https://modmyclassic.com/project-eris/
 - (Optional, but highly recommended) Either a **POWERED** USB hub or a mod to your Playstation Classic USB ports to remove the current limit. See here for a how to: https://modmyclassic.com/wiki/index.php?title=PlayStation_Classic#USB_Current_Limiting or via a Youtube video: https://www.youtube.com/watch?v=YU8M_2c2DGc
 - A USB drive formatted to FAT32 and labelled SONY with at least 20GB of free space.
-- (Optional) A network USB adapter for internet access, either ethernet or wireless. Most should work but to be on the safe side, use a USB2.0 one which has Linux support (the manufacturer should state whether it works with Linux or not)
+- (Optional) A network USB adapter for internet access, either wired or wireless. Most should work but to be on the safe side, use a USB2.0 one which has Linux support (the manufacturer should state whether it works with Linux or not)
 - Patience
 
 ## How to install Debian
@@ -84,6 +86,7 @@ The hack which this installer is based on is called lolhack and you can find it 
 
 
 And that should cover it.  
-Also **PLEASE** don't open issues here related to "how do I do this on Debian". This Debian installation is almost identical (excpet it runs on ARM and not on x86) to what you'd find on a normal PC so just Google your issue or search on StackOverflow.  
+Also **PLEASE** don't open issues here related to "how do I do this on Debian".  
+This Debian installation is almost identical (excpet it runs on ARM and not on x86) to what you'd find on a normal PC so just Google your issue or search on StackOverflow.  
 
 Thank you for your understanding and happy tinkering!
