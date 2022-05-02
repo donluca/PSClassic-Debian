@@ -125,8 +125,12 @@ echo "The installation process will take a long time, most likely more than 1 ho
 # Check if the rootFS is present
 echo ""
 echo "Checking the integrity of the installer files (this may take a while)..."
-if [[ ! -e "/media/rootfs/PSCSid.tar.gz" ]] || [[ `sha1sum /media/rootfs/PSCSid.tar.gz` != "896cdcf05687993b23d877dd0cdb945607b39e74" ]]
+if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `sha1sum /media/rootfs/PSCSid.tar.gz | awk '{ print $1 }'` == "896cdcf05687993b23d877dd0cdb945607b39e74" ]]
 then
+    echo ""
+    echo "All good!"
+    echo ""
+else
     echo ""
     echo "The files you've downloaded are corrupted or not valid."
     echo ""
