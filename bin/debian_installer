@@ -24,7 +24,6 @@ echo "* * * Welcome to the Debian on Playstation Classic installer! * * *"
 echo ""
 echo "This software comes with ABSOLUTELY NO WARRANTY, to the extent permitted by applicable law."
 echo ""
-sleep 5
 
 # Boot to Debian routine
 if (( `ls /media | grep -i boot | wc -l` > 0 ))
@@ -116,7 +115,6 @@ echo "**************************************************************************
 echo ""
 echo "You can find more information at https://github.com/donluca/PSClassic-Debian"
 echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
-sleep 15
 echo ""
 echo "If you don't see anything happning on screen for longer than 10 minutes, it means something has gone wrong."
 echo "One of the most likely cause is that you're not using a powered USB hub or your USB drive needs too much power."
@@ -124,7 +122,7 @@ echo "The installation process will take a long time, most likely more than 1 ho
 
 # Check if the rootFS is present
 echo ""
-echo "Checking the integrity of the installer files (this may take a while)..."
+echo "Checking the integrity of the installer files (this is going to take several minutes)..."
 if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `sha1sum /media/rootfs/PSCSid.tar.gz | awk '{ print $1 }'` == "896cdcf05687993b23d877dd0cdb945607b39e74" ]]
 then
     echo ""
@@ -164,8 +162,9 @@ then
         echo ""
         umount /gaadata
         mkfs.ext4 /dev/mmcblk0p9
+        mount -o rw /dev/mmcblk0p9 /gaadata
         echo ""
-        echo "Done formatting the partition, now I'll copy a fresh Debian installation over. This is going to take a while."
+        echo "Done formatting the partition, now I'll copy a fresh Debian installation over. This is going to take a long time."
         sleep 5
         echo ""
         tar -xzvf /media/rootfs/PSCSid.tar.gz -C /gaadata
