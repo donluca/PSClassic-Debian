@@ -74,11 +74,12 @@ If you ever wanted such a device, congrats, you already have one.
 There are two ways you can use the Playstation Classic as a MIDI emulator box: either via USB (if you connect it to, say, a PC/Mac/MiSTer FPGA/Raspberry Pi/etc.) or you'll need a cheap USB-MIDI adapter for your old 486/Pentium computer so that you can connect it via MIDI/Gameport to the Playstation Classic.  
 The USB way is a breeze and will work great with software like SCUMMVM ( https://www.scummvm.org ) on your modern machine or on MiSTer FPGA.  
 To enable MIDI over USB follow those simple steps:
-- If you want to use the MT-32 Emulator, launch it from LXQt main menu -> Audio and Video -> MT-32 Emulator
-- If you want to use General MIDI/GS/anything else which uses soundfonts, launch QSynth (which is the GUI for Fluidsynth) from LXQt main menu -> Audio and Video -> qsynth
+- If you want to use the MT-32 Emulator, launch it from LXQt main menu -> Sound & Video -> MT-32 Emulator and add the necessary ROM files (Google is your friend)
+- If you want to use General MIDI/GS/anything else which uses soundfonts, launch QSynth (which is the GUI for Fluidsynth) from LXQt main menu -> Sound & Video -> Qsynth
 - In the main menu of LXQt, go to Audio and Video and select "Enable MIDI over USB". It will ask for your password and shortly after you'll find on your PC a new MIDI Device called Android. It is automatically recognized on Windows (even on Windows 98!), macOS and Linux, without the need of additional drivers.
+- Just one extra step for MT-32: Click on the + sign under MIDI Input and choose midi2 and click ok.
 - And that's pretty much it. Remember to choose the Android midi device on your PC/Mac as MIDI output on SCUMMVM/DOSBox/etc. and you're ready to go.
-- Please note that by enabling MIDI over USB you'll disable RNDIS as only one service can be active at one time via USB. You can enable RNDIS after you've finished playing around with MIDI from LXQt main menu -> System Tools -> Enable RNDIS
+- Please note that by enabling MIDI over USB you'll disable RNDIS as only one service can be active at one time via USB. You can enable RNDIS after you've finished playing around with MIDI from LXQt main menu -> System Tools -> Enable RNDIS over USB
 
 ## Acknowledgments
 This whole thing has taken almost 1 year to come to this point and it wouldn't have been possible without the work of honeylab ( https://honeylab.hatenablog.jp ) and Project Eris ( https://modmyclassic.com/project-eris/ ) and the infinite patience of several members of the Project Eris Discord, especially notv37 and Compcom.  
