@@ -40,7 +40,7 @@ If you're in desperate need of more RAM, you can try using zRAM to better manage
 - Unplug all your USB devices (except for the power cable, of course – Capt. Obvious)
 - Plug the USB drive
 - Shortly after, you should see the power leds blink and the screen should go black and stuff will start to appear on screen: pay close attention to what's being written because it will tell you step by step what is happening. The process will take a long time, ranging from 1 hour up to several hours depending on how fast your USB drive is.
-- If at any point the whole system freezes, read the following sections to know what to do
+- If at any point the whole system freezes, read the troubleshooting section below to know what to do
 - If everything went well, you can unplug the power, unplug the USB drive, plug mouse and keyboard and plug the power cable and after a short time (it generally takes 10 to 20 seconds to boot) you should be in LXQt
 - Enjoy messing around in Linux!
 
@@ -61,6 +61,7 @@ The whole system has a billion safety checks in place, so it's most likely that 
 Anyway... there's some stuff which may go wrong (there always is) so here we go.
 - **The installation process doesn't start or hangs:** this is a scenario which is very likely to happen and it's because you have not used a powered USB hub, you haven't modded the USB ports of the Playstation Classic or your USB drive draws too much power. **Solution:** either use a powered USB hub (as suggested) or try with another USB drive which will hopefully draw less power.
 - **You mess up the system by installing Debian FIRST and Project Eris LATER:** it's not really a mess up and it's very easy to solve. Just use the Debian installer USB Drive and follow the steps for manually rebooting into Debian (see above). It will install the Debian kernel overwriting the Project Eris one. Project Eris is compatible with the Debian kernel.
+- **You mess up your Debian installation and all you get now is a black screen:** You have to open your Playstation Classic and do what's shown in this Youtube video to enable fastboot https://www.youtube.com/watch?v=o05HpHTwLuw and then you have to use fastboot to flash back the psc.img kernel (which you can find in the folder kernel) to the BOOTIMG1 partition. If you don't know how to install or use fastboot, Google for a guide "how to flash kernel with fastboot". At this point you'll be able to boot to stock kernel and from there you can force a re-installation of Debian in a clean state (check the "Extra functions" section above).
 
 # Curiosities and cute things you can do with Debian on the Playstation Classic
 
