@@ -72,7 +72,7 @@ Instead of connecting the Playstation Classic to a wall charger to power it, con
 Recently there has been a spike in popoularity of old MIDI modules such as the classic Roland MT-32 and Roland GS modules, to the point where people have created emulators of such boxes using, for example, a Raspberry Pi: https://github.com/dwhinham/mt32-pi  
 If you ever wanted such a device, congrats, you already have one.  
 There are two ways you can use the Playstation Classic as a MIDI emulator box: either via USB (if you connect it to, say, a PC/Mac/MiSTer FPGA/Raspberry Pi/etc.) or you'll need a cheap USB-MIDI adapter for your old 486/Pentium computer so that you can connect it via MIDI/Gameport to the Playstation Classic.  
-The USB way is a breeze and will work great with software like SCUMMVM ( https://www.scummvm.org ) on your modern machine.  
+The USB way is a breeze and will work great with software like SCUMMVM ( https://www.scummvm.org ) on your modern machine or on MiSTer FPGA.  
 To enable MIDI over USB follow those simple steps:
 - If you want to use the MT-32 Emulator, launch it from LXQt main menu -> Audio and Video -> MT-32 Emulator
 - If you want to use General MIDI/GS/anything else which uses soundfonts, launch QSynth (which is the GUI for Fluidsynth) from LXQt main menu -> Audio and Video -> qsynth
