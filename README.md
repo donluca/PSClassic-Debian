@@ -2,6 +2,8 @@
 
 **This software comes with ABSOLUTELY NO WARRANTY, to the extent permitted by applicable law.**
 
+![Debian](./images/debian.png)
+
 ## What is this?
 
 Got a Playstation Classic gathering dust somewhere in your room?  
@@ -22,6 +24,9 @@ If you're in desperate need of more RAM, you can try using zRAM to better manage
 - **1080p max:** Considering that the stock firmware runs at 720p (and you can't change it), this is already an improvement. But this is also the max resolution the GPU supports. Don't try going further or you'll get a garbled screen.
 - **No framebuffer console support:** What this means is that you won't be able to see the boot process, the screen will be black and you won't have virtual terminals (don't try hitting CTRL+ALT+F<n> to try and switch to a virtual terminal because the system will freeze).
 - Finally... this is not something for the fainthearted. If you screw up, prepare to know how to access fastboot ( https://www.youtube.com/watch?v=o05HpHTwLuw ) to go to a recoverable state and flash back your original kernel. Bonus points if you're knowledgeable in Linux. If you're feeling scared at this point, messing around with this is probably not what you want to be doing.
+  
+![Firefox](./images/firefox.png)
+
 
 ## What do you need?
 - A Playstation Classic (duh)
@@ -70,6 +75,9 @@ Debian on Playstation Classic has an RNDIS network interface enabled by default 
 Instead of connecting the Playstation Classic to a wall charger to power it, connect it to a **good** (ie: that can provide enough power) USB port on your PC/Mac and once Debian has booted, you'll find a new network interface on Windows/Mac named "Android". You can use it to connect to the Playstation Classic in several ways (for example via SSH) and you can also give the Playstation Classic internet access through it (although you have to disable the DHCP server on the PSC and reconfigure the RNDIS network interface to use DHCP instead of a static IP and then, of course, tell your Windows/Mac machine to share the internet connection the new Android network interface).
 
 ## Use it as a USB Roland MT-32/General MIDI/MIDI box Emulator
+  
+![MIDI](./images/midi.png)
+  
 Recently there has been a spike in popoularity of old MIDI modules such as the classic Roland MT-32 and Roland GS modules, to the point where people have created emulators of such boxes using, for example, a Raspberry Pi: https://github.com/dwhinham/mt32-pi  
 If you ever wanted such a device, congrats, you already have one.  
 There are two ways you can use the Playstation Classic as a MIDI emulator box: either via USB (if you connect it to, say, a PC/Mac/MiSTer FPGA/Raspberry Pi/etc.) or you'll need a cheap USB-MIDI adapter for your old 486/Pentium computer so that you can connect it via MIDI/Gameport to the Playstation Classic.  
