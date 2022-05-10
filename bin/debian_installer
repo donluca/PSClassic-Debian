@@ -51,7 +51,7 @@ then
     echo "Restoring original kernel..."
     sleep 5
     echo ""
-    ddrescue --force /media/backup/kernel/orig_kernel.img /dev/mmcblk0p1
+    ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
     if (( $? > 0 ))
     then
         echo ""
@@ -209,7 +209,7 @@ sleep 5
 echo ""
 echo "Backing up your original kernel..."
 echo ""
-ddrescue /dev/mmcblk0p1 /media/kernel/orig_kernel.img
+ddrescue /dev/mmcblk0p1 /media/backup/orig_kernel.img
 if (( $? > 0 ))
 then
     echo ""
