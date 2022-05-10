@@ -68,6 +68,7 @@ then
     echo ""
     sleep 5
     umount /gaadata
+    dmsetup remove /dev/mapper/gaadata
     mkfs.ext4 -N 2048 /dev/mmcblk0p9
     mount -o rw /dev/mmcblk0p9 /gaadata
     echo ""
@@ -161,6 +162,7 @@ then
         sleep 5
         echo ""
         umount /gaadata
+        dmsetup remove /dev/mapper/gaadata
         mkfs.ext4 /dev/mmcblk0p9
         mount -o rw /dev/mmcblk0p9 /gaadata
         echo ""
@@ -271,6 +273,20 @@ echo "It's time to erase the games to make space for Debian."
 sleep 5
 echo ""
 umount /gaadata
+if (( $? > 0 ))
+then
+    echo "Something went wrong when trying to unmount your gaadata partition."
+    echo "To prevent screwing up your current installation, the process has been halted and your original kernel is going to be restored."
+    sleep 10
+    echo ""
+    ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
+    echo ""
+    echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
+    echo "You can now safely power off your Playstation Classic."
+    echo ""
+    sleep 365d
+fi
+dmsetup remove /dev/mapper/gaadata
 if (( $? > 0 ))
 then
     echo "Something went wrong when trying to unmount your gaadata partition."
