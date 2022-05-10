@@ -274,7 +274,7 @@ sleep 5
 echo ""
 umount /gaadata
 dmsetup remove /dev/mapper/gaadata
-if [[ -e /dev/mapper/gaadata ]] || [[ `df -h | grep -i mmcblk0p9` != "" ]]
+if [[ -e /dev/mapper/gaadata ]] || [[ `df -h | grep -i gaadata` != "" ]]
 then
     echo "Something went wrong when trying to unmount your gaadata partition."
     echo "To prevent screwing up your current installation, the process has been halted and your original kernel is going to be restored."
