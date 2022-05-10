@@ -51,7 +51,7 @@ then
     echo "Restoring original kernel..."
     sleep 5
     echo ""
-    ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
+    ddrescue --force /media/backup/kernel/orig_kernel.img /dev/mmcblk0p1
     if (( $? > 0 ))
     then
         echo ""
@@ -211,7 +211,7 @@ sleep 5
 echo ""
 echo "Backing up your original kernel..."
 echo ""
-ddrescue /dev/mmcblk0p1 /media/backup/orig_kernel.img
+ddrescue /dev/mmcblk0p1 /media/backup/kernel/orig_kernel.img
 if (( $? > 0 ))
 then
     echo ""
@@ -258,7 +258,7 @@ then
     echo "To prevent screwing up your current installation, the process has been halted and your original kernel is going to be restored."
     sleep 10
     echo ""
-    ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
+    ddrescue --force /media/backup/kernel/orig_kernel.img /dev/mmcblk0p1
     echo ""
     echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
     echo "You can now safely power off your Playstation Classic."
@@ -280,7 +280,7 @@ then
     echo "To prevent screwing up your current installation, the process has been halted and your original kernel is going to be restored."
     sleep 10
     echo ""
-    ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
+    ddrescue --force /media/backup/kernel/orig_kernel.img /dev/mmcblk0p1
     echo ""
     echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
     echo "You can now safely power off your Playstation Classic."
@@ -294,7 +294,7 @@ then
     echo "To prevent screwing up your current installation, the process has been halted and your original kernel is going to be restored."
     sleep 10
     echo ""
-    ddrescue --force /media/backup/orig_kernel.img /dev/mmcblk0p1
+    ddrescue --force /media/backup/kernel/orig_kernel.img /dev/mmcblk0p1
     echo ""
     echo "Your Playstation Classic has been restored to stock. Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
     echo "You can now safely power off your Playstation Classic."
