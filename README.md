@@ -4,6 +4,12 @@
 
 ![Debian](./images/debian.png)
 
+### 15/05/2022 – Important update
+
+I have pulled all releases because I've found a pretty ugly bug that I need to address, plus other small things that have come up during the first testing phase.  
+A new release will be made at some point, hopefully by the end of this month, which will be the first "stable" release with all bugs and issues fixed.  
+Limitations will still apply.  
+
 ## What is this?
 
 Got a Playstation Classic gathering dust somewhere in your room?  
