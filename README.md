@@ -14,7 +14,7 @@ Limitations will still apply.
 
 Got a Playstation Classic gathering dust somewhere in your room?  
 Nice, you can now transform it in a fully fledged Debian Linux PC rocking the LXQt Desktop Environment!  
-The hardware in the Playstation Classic isn't half bad, the Mediatek MT8167 gives us 4 cores of ARM Cortex A35 which are right up the alley of a Raspberry Pi 3, along with 1GB or RAM and 16GB of eMMC which are both a bit limiting, but not the end of the world.  
+The hardware in the Playstation Classic isn't half bad, the Mediatek MT8167 gives us 4 cores of ARM Cortex A35 which are right up the alley of a Raspberry Pi 3, along with 1GB of RAM and 16GB of eMMC which are both a bit limiting, but not the end of the world.  
 There's also a very capable GPU, but we don't talk about that here.
 
 ## Limitations and issues
