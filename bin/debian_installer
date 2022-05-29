@@ -123,6 +123,7 @@ echo "The installation process will take a long time, most likely more than 1 ho
 # Check if the rootFS is present
 echo ""
 echo "Checking the integrity of the installer files (this is going to take several minutes)..."
+echo ""
 if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "896cdcf05687993b23d877dd0cdb945607b39e74" ]]
 then
     echo ""
@@ -141,7 +142,7 @@ else
     sleep 365d
 fi
 
-# Check if Debian is already installed
+# Check if Debian is already installed and if the user wants to reinstall a fresh copy of Debian
 if [[ -e "/gaadata/psc.img" ]]
 then
     if (( `ls /media | grep -i force | wc -l` > 0 ))
