@@ -15,7 +15,7 @@ kill -STOP $(ps | grep power_manage | head -1 | awk '{ print $1 }')
 # Open a Weston terminal and let's redirect all output to it so people can see what's happening
 weston-terminal -f &
 sleep 1
-exec 1>/dev/pts/0
+exec &>/dev/pts/0
 echo ""
 
 # Greetings!
@@ -123,7 +123,7 @@ echo "The installation process will take a long time, most likely more than 1 ho
 # Check if the rootFS is present
 echo ""
 echo "Checking the integrity of the installer files (this is going to take several minutes)..."
-if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `sha1sum /media/rootfs/PSCSid.tar.gz | awk '{ print $1 }'` == "896cdcf05687993b23d877dd0cdb945607b39e74" ]]
+if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "896cdcf05687993b23d877dd0cdb945607b39e74" ]]
 then
     echo ""
     echo "All good!"
