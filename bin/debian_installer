@@ -33,7 +33,9 @@ then
     ddrescue --force /media/kernel/debian.img /dev/mmcblk0p1
     echo ""
     echo "Done! Remember to unplug this USB drive *after* the Playstation Classic reboots!"
-    echo "Rebooting in 15 seconds"    
+    echo "Rebooting in 15 seconds"  
+    shopt -s nocaseglob
+    rm -rf /media/boot
     sleep 15
     reboot
 fi
@@ -103,6 +105,8 @@ then
     sync
     echo ""
     echo "All good! You can safely power off now and when you power on you'll be back in your stock Playstation Classic."
+    shopt -s nocaseglob
+    rm -rf /media/boot
     sleep 365d
 fi
 
@@ -120,7 +124,7 @@ echo "If you don't see anything happning on screen for longer than 10 minutes, i
 echo "One of the most likely cause is that you're not using a powered USB hub or your USB drive needs too much power."
 echo "The installation process will take a long time, most likely more than 1 hour, depending on how fast your USB drive is."
 
-# Check if the rootFS is present
+# Check if the rootFS is present and not corrupted
 echo ""
 echo "Checking the integrity of the installer files (this is going to take several minutes)..."
 echo ""
@@ -147,6 +151,8 @@ if [[ -e "/gaadata/psc.img" ]]
 then
     if (( `ls /media | grep -i force | wc -l` > 0 ))
     then
+        echo "I've found a file or folder named FORCE, so I'll force a new installation of Debian over your current one!"
+        echo ""
         echo "You have chosen to remove your current Debian installation and put a new, fresh one in its place."
         echo ""
         echo "Please make sure this is what you really want, because this process will destroy your Debian installation"
@@ -178,6 +184,8 @@ then
         ddrescue --force /media/kernel/debian.img /dev/mmcblk0p1
         echo ""
         echo "Finished re-installing Debian. You can now poweroff your Playstation Classic safely."
+        shopt -s nocaseglob
+        rm -rf /media/force
         sleep 365d
     fi
     echo "It looks like Debian is already installed!"
