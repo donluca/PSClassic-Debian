@@ -68,7 +68,7 @@ then
     echo ""
     sleep 5
     umount /gaadata
-    mkfs.ext4 -N 2048 /dev/mmcblk0p9
+    mkfs.ext4 -N 4096 /dev/mmcblk0p9
     mount -o rw /dev/mmcblk0p9 /gaadata
     echo ""
     echo "Done"
