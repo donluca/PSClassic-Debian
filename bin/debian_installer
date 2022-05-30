@@ -34,8 +34,7 @@ then
     echo ""
     echo "Done! Remember to unplug this USB drive *after* the Playstation Classic reboots!"
     echo "Rebooting in 15 seconds"  
-    shopt -s nocaseglob
-    rm -rf /media/boot
+    find /media/ -maxdepth 1 -iname "boot" -exec rm -rf {} \;
     sleep 15
     reboot
 fi
@@ -105,8 +104,7 @@ then
     sync
     echo ""
     echo "All good! You can safely power off now and when you power on you'll be back in your stock Playstation Classic."
-    shopt -s nocaseglob
-    rm -rf /media/boot
+    find /media/ -maxdepth 1 -iname "boot" -exec rm -rf {} \;
     sleep 365d
 fi
 
@@ -184,8 +182,7 @@ then
         ddrescue --force /media/kernel/debian.img /dev/mmcblk0p1
         echo ""
         echo "Finished re-installing Debian. You can now poweroff your Playstation Classic safely."
-        shopt -s nocaseglob
-        rm -rf /media/force
+        find /media/ -maxdepth 1 -iname "force" -exec rm -rf {} \;
         sleep 365d
     fi
     echo "It looks like Debian is already installed!"
