@@ -4,11 +4,10 @@
 
 ![Debian](./images/debian.png)
 
-### 15/05/2022 – Important update
+### 30/05/2022 – Important update
 
-I have pulled all releases because I've found a pretty ugly bug that I need to address, plus other small things that have come up during the first testing phase.  
-A new release will be made at some point, hopefully by the end of this month, which will be the first "stable" release with all bugs and issues fixed.  
-Limitations will still apply.  
+I've published a "final test release" which is manily meant for the discord user notv37 in the modmyclassic Discord server, as he's been kindly testing this project while I keep at trying to permanently brick his poor Playstation Classic (so far I've failed, which is a good thing).
+If you want to use v0.9, do it at your own risk because there are a couple things which are still untested, especially the restore routine. Everything else ***should*** work correctly. As always, YMMV.    
 
 ## What is this?
 
