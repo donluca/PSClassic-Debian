@@ -144,7 +144,7 @@ else
     sleep 365d
 fi
 
-# Check if Debian is already installed and if the user wants to reinstall a fresh copy of Debian
+# Check if Debian or something else is already installed and if the user wants to reinstall a fresh copy of Debian
 if [[ -e "/gaadata/psc.img" ]]
 then
     if (( `ls /media | grep -i force | wc -l` > 0 ))
@@ -191,6 +191,20 @@ then
     echo "firmware has booted."
     echo ""
     echo "You can now safely poweroff your Playstation Classic"
+    sleep 365d
+fi
+if [[ -d "/gaadata/bin" ]]
+then
+    echo "There's something strange in your game's partition, it looks like you've either installed Debian or another Linux"
+    echo "distribution in there. The backup process would not be able to properly save your installation, henche it is up to"
+    echo "you to backup whatever is in there first."
+    echo ""
+    echo "If you still wish to install Debian, create a file or folder named"
+    echo "FORCE at the root of this USB drive and plug it in after original firmware has booted. The process will wipe your"
+    echo "games' partition without backing it up and force a fresh installation of Debian, so make sure you backup whatever"
+    echo "is in there before going through this process."
+    echo ""
+    echo "I'm going to stop here and won't go further. You can now power off your Playstation Classic safely."
     sleep 365d
 fi
 
