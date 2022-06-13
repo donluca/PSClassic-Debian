@@ -137,7 +137,7 @@ else
     echo ""
     echo "Please format your USB drive, download the installer again from Github at"
     echo "https://github.com/donluca/PSClassic-Debian/releases and make sure to download"
-    echo "the file named PSCDebian.zip"
+    echo "the file named PSCDebian.zip and follow the instructions on the project's home page."
     echo "Do NOT clone the repository and do NOT download via Code -> Download ZIP, it will not work."
     echo ""
     echo "You can now power off your Playstation Classic safely"
@@ -199,10 +199,29 @@ then
     echo "distribution in there. The backup process would not be able to properly save your installation, henche it is up to"
     echo "you to backup whatever is in there first."
     echo ""
-    echo "If you still wish to install Debian, create a file or folder named"
-    echo "FORCE at the root of this USB drive and plug it in after original firmware has booted. The process will wipe your"
-    echo "games' partition without backing it up and force a fresh installation of Debian, so make sure you backup whatever"
-    echo "is in there before going through this process."
+    echo "If you still wish to install Debian, create a file or folder named FORCE at the root of this USB drive and plug it"
+    echo "in after original firmware has booted. The process will wipe your games' partition without backing it up and force"
+    echo "a fresh installation of Debian, so make sure you backup whatever is in there before going through this process."
+    echo ""
+    echo "I'm going to stop here and won't go further. You can now power off your Playstation Classic safely."
+    sleep 365d
+fi
+
+# Check if there's already a backup in the USB drive. We don't want those to mix up
+echo ""
+if [[ `ls /media/gaadata | wc -l` > 1 ]]
+then
+    echo "There's something already inside your backup folder on your USB drive, maybe an old or incomplete/corrupted backup?"
+    echo ""
+    echo "Please copy the content of the folder backup/gaadata on your USB drive somewhere else and then delete everything"
+    echo "in that folder."
+    echo "If the folder backup/gaadata inside your USB drive will not be empty, I'll always detect something in there"
+    echo "and you're going to always get this message."
+    echo ""
+    echo "If you want to install Debian without backing up your game partition and going through this check, create a file"
+    echo "or folder named NOBACKUP at the root of this USB drive and plug it in after original firmware has booted."
+    echo "Be careful that THIS IS AN INCREDIBLY RISKY AND STUPID IDEA UNLESS YOU KNOW *EXACTLY* WHAT YOU'RE DOING."
+    echo "You have been warned."
     echo ""
     echo "I'm going to stop here and won't go further. You can now power off your Playstation Classic safely."
     sleep 365d
@@ -222,44 +241,56 @@ else
 fi
 sleep 10
 
-# Backup all the relevant partitions and data
+# Backup all the relevant partitions and data, unless NOBACKUP is specified
 echo ""
-echo "We're now going to backup all of your data, make sure to put this USB drive somewhere safe once we're done."
-sleep 5
-echo ""
-echo "Backing up your original kernel..."
-echo ""
-ddrescue /dev/mmcblk0p1 /media/backup/kernel/orig_kernel.img
-if (( $? > 0 ))
+if (( `ls /media | grep -i nobackup | wc -l` > 0 ))
 then
+    echo "I've found a file or folder named NOBACKUP, so I'll skip the entire backup process."
     echo ""
-    echo "Something went wrong during the kernel backup process"
-    echo "To prevent screwing up your current installation, the process has been halted and no modifications have been made."
+    echo "This is truly one of the most stupid and risky idea ever, but if you got here, I guess you know"
+    echo "what you're doing."
     echo ""
-    echo "Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
-    echo "You can now safely power off your Playstation Classic."
-    sleep 365d
+    echo "I'll put a 1 minute delay here so you can always change your mind and plug the power before the"
+    echo "installation process continues without backing up your games first."
+    sleep 60
+else
+    echo "We're now going to backup all of your data, make sure to put this USB drive somewhere safe once we're done."
+    sleep 5
+    echo ""
+    echo "Backing up your original kernel..."
+    echo ""
+    ddrescue /dev/mmcblk0p1 /media/backup/kernel/orig_kernel.img
+    if (( $? > 0 ))
+    then
+        echo ""
+        echo "Something went wrong during the kernel backup process"
+        echo "To prevent screwing up your current installation, the process has been halted and no modifications have been made."
+        echo ""
+        echo "Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
+        echo "You can now safely power off your Playstation Classic."
+        sleep 365d
+    fi
+    sync
+    echo ""
+    echo "Backing up your game data (this is going to take a while)..."
+    sleep 5
+    echo ""
+    cp -va /gaadata/* /media/backup/gaadata/
+    if (( $? > 0 ))
+    then
+        echo ""
+        echo "Something went wrong during the game backup process"
+        echo "To prevent screwing up your current installation, the process has been halted and no modifications have been made."
+        echo ""
+        echo "Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
+        echo "You can now safely power off your Playstation Classic."
+        sleep 365d
+    fi
+    sync
+    echo ""
+    echo "Backup completed!"
+    sleep 5
 fi
-sync
-echo ""
-echo "Backing up your game data (this is going to take a while)..."
-sleep 5
-echo ""
-cp -va /gaadata/* /media/backup/gaadata/
-if (( $? > 0 ))
-then
-    echo ""
-    echo "Something went wrong during the game backup process"
-    echo "To prevent screwing up your current installation, the process has been halted and no modifications have been made."
-    echo ""
-    echo "Please report this incident to the Github page at https://github.com/donluca/PSClassic-Debian"
-    echo "You can now safely power off your Playstation Classic."
-    sleep 365d
-fi
-sync
-echo ""
-echo "Backup completed!"
-sleep 5
 
 # Install kernel and Debian rootFS
 echo ""
