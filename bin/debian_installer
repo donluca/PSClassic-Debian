@@ -253,8 +253,7 @@ then
     echo "and you're going to always get this message."
     echo ""
     echo "If you want to install Debian without backing up your game partition and going through this check, create a file"
-    echo "or folder named 
-    at the root of this USB drive and plug it in after original firmware has booted."
+    echo "or folder named NOBACKUP at the root of this USB drive and plug it in after original firmware has booted."
     echo "Be careful that THIS IS AN INCREDIBLY RISKY AND STUPID IDEA UNLESS YOU KNOW *EXACTLY* WHAT YOU'RE DOING."
     echo "You have been warned."
     echo ""
