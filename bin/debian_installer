@@ -91,9 +91,12 @@ then
         echo "but you can still install Project Eris and save the day."
         echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
         echo ""
-        echo "I'll now copy over some files which are essential for the original firmware to boot properly."
-        echo ""
-        cp -va /media/backup/databases /gaadata
+        if [[ ! -d /gaadata/databases ]]
+        then
+            echo "I'll now copy over some files which are essential for the original firmware to boot properly."
+            echo ""
+            cp -va /media/backup/databases /gaadata
+        fi
         sync
         echo ""
         echo "Done."
