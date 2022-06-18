@@ -104,7 +104,7 @@ then
     sync
     echo ""
     echo "All good! You can safely power off now and when you power on you'll be back in your stock Playstation Classic."
-    find /media/ -maxdepth 1 -iname "boot" -exec rm -rf {} \;
+    find /media/ -maxdepth 1 -iname "restore" -exec rm -rf {} \;
     sleep 365d
 fi
 
