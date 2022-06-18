@@ -49,15 +49,15 @@ then
     echo "gone forever, so you'll have to provide the games yourself."
     echo ""
     sleep 15
-    if [[ ! -d /media/backup/gaadata/databases || `du -sk /media/backup/gaadata | awk '{ print $1 }'` < 10000000 ]]
+    if [[ ! -d /media/backup/gaadata/databases || `du -sk /media/backup/gaadata | awk '{ print $1 }'` -lt 10000000 ]]
     then
         echo "Bad news: it looks like your backup is invalid."
         echo "Maybe it's corrupted, incomplete or something else. It is not what I expected to find."
         echo ""
-        if (( ! `ls /media | grep -i forcebackup | wc -l` > 0 ))
+        if (( ! `ls /media | grep -i frestore | wc -l` > 0 ))
         then
             echo "If you are REALLY sure that your backup is fine, then create a file or folder named"
-            echo "FORCEBACKUP at the root of this USB drive and plug it in after original firmware has booted."
+            echo "FRESTORE at the root of this USB drive and plug it in after original firmware has booted."
             echo ""
             echo "I'm not going to go further and risk to erase your Debian installation with an invalid backup."
             echo "You can power off now."
@@ -71,6 +71,7 @@ then
             echo "so you can still unplug the power and nothing will happen."
             echo ""
             sleep 90
+            find /media/ -maxdepth 1 -iname "frestore" -exec rm -rf {} \;
         fi
     fi
     echo "Restoring original kernel..."
@@ -106,7 +107,7 @@ then
     then
         echo "Something went wrong when trying to restore your games. Has your original backup gone bad?"
         echo ""
-        echo "This is really bad. You've lost your original internal games. Not the end of the world, though."
+        echo "This is really bad. You might have lost your original internal games. Not the end of the world, though."
         echo "I strongly recommend you to install Project Eris which will allow you to still play games on original firmware,"
         echo "you'll just have to provide the games yourself."
         echo "This is the end of the road here, though."
@@ -114,6 +115,9 @@ then
         echo "Playstation Classic now. When you turn it back on, it will boot to the original firmware where you won't have any games,"
         echo "but you can still install Project Eris and save the day."
         echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
+        echo ""
+        echo "Lastly... there is a slight chance that something triggered this check, but your games are alright and the restore"
+        echo "process was successful. I suggest you try to reboot and see if everything works correctly, you never know."
         echo ""
         if [[ ! -d /gaadata/databases ]]
         then
