@@ -49,7 +49,7 @@ then
     echo "gone forever, so you'll have to provide the games yourself."
     echo ""
     sleep 15
-    if [[ ! -d /media/backup/gaadata/databases || `du -sk /media/backup/gaadata | awk '{ print $1} ` < 10000000 ]]
+    if [[ ! -d /media/backup/gaadata/databases || `du -sk /media/backup/gaadata | awk '{ print $1 }'` < 10000000 ]]
     then
         echo "Bad news: it looks like your backup is invalid."
         echo "Maybe it's corrupted, incomplete or something else. It is not what I expected to find."
