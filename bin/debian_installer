@@ -70,7 +70,7 @@ then
             echo "I'll put a 1 minute delay here so you can make up your mind whether you want to proceed or not,"
             echo "so you can still unplug the power and nothing will happen."
             echo ""
-            sleep 90
+            sleep 60
             find /media/ -maxdepth 1 -iname "frestore" -exec rm -rf {} \;
         fi
     fi
@@ -105,29 +105,32 @@ then
     cp -va /media/backup/gaadata/* /gaadata
     if (( $? > 0 )) || (( `df | grep gaadata | awk '{ print $4 }'` > 10000000 ))
     then
+        echo ""
         echo "Something went wrong when trying to restore your games. Has your original backup gone bad?"
         echo ""
-        echo "This is really bad. You might have lost your original internal games. Not the end of the world, though."
-        echo "I strongly recommend you to install Project Eris which will allow you to still play games on original firmware,"
-        echo "you'll just have to provide the games yourself."
-        echo "This is the end of the road here, though."
-        echo "Your Debian installation has been erased and you don't have your original games, so you can just power off your"
-        echo "Playstation Classic now. When you turn it back on, it will boot to the original firmware where you won't have any games,"
-        echo "but you can still install Project Eris and save the day."
-        echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
-        echo ""
-        echo "Lastly... there is a slight chance that something triggered this check, but your games are alright and the restore"
+        echo "This is really bad. You might have lost some or all of your original internal games. Not the end of the world, though."
+        echo "There is a slight chance that something triggered this check, but your games are alright and the restore"
         echo "process was successful. I suggest you try to reboot and see if everything works correctly, you never know."
+        echo ""
+        echo "If you found yourself with no games (or only some of the ones you had), I strongly recommend you to install Project Eris"
+        echo "which will allow you to still play games on original firmware, you'll just have to provide the games yourself."
+        echo ""
+        echo "This is the end of the road here, though."
+        echo ""
+        echo "Your Debian installation has been erased and you might not have your original games, so you can just power off your"
+        echo "Playstation Classic now. When you turn it back on, it will boot to the original firmware and you can still install"
+        echo "Project Eris and save the day."
+        echo "You can find information about Project Eris at https://modmyclassic.com/project-eris/"
         echo ""
         if [[ ! -d /gaadata/databases ]]
         then
             echo "I'll now copy over some files which are essential for the original firmware to boot properly."
             echo ""
             cp -va /media/backup/databases /gaadata
+            echo ""
+            echo "Done."
         fi
         sync
-        echo ""
-        echo "Done."
         echo ""
         echo "You can power off now."
         sleep 365d
