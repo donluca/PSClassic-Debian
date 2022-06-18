@@ -49,6 +49,29 @@ then
     echo "gone forever, so you'll have to provide the games yourself."
     echo ""
     sleep 15
+    if [[ ! -d /media/backup/gaadata/databases || `du -s /media/backup/gaadata | something ` < 1000 ]]
+    then
+        echo "Bad news: it looks like your backup is invalid."
+        echo "Maybe it's corrupted, incomplete or something else. It is not what I expected to find."
+        echo ""
+        if (( ! `ls /media | grep -i forcebackup | wc -l` > 0 ))
+        then
+            echo "If you are REALLY sure that your backup is fine, then create a file or folder named"
+            echo "FORCEBACKUP at the root of this USB drive and plug it in after original firmware has booted."
+            echo ""
+            echo "I'm not going to go further and risk to erase your Debian installation with an invalid backup."
+            echo "You can power off now."
+            sleep 365d
+        else
+            echo "You have chosen to force a backup restore. I hope you know what you're doing."
+            echo "Your Debian installation will be wiped and the seemingly corrupt (or non-existent) backup"
+            echo "is going to be restored to your game partition."
+            echo ""
+            echo "I'll put a 1 minute delay here so you can make up your mind whether you want to proceed or not,"
+            echo "so you can still unplug the power and nothing will happen."
+            sleep 60
+        fi
+    fi
     echo "Restoring original kernel..."
     sleep 5
     echo ""
