@@ -166,7 +166,7 @@ echo "The installation process will take a long time, most likely more than 1 ho
 echo ""
 echo "Checking the integrity of the installer files (this is going to take several minutes)..."
 echo ""
-if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "f60d360a9e033940c98c20eb019dfdbe3975874d" ]]
+if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "515609a9b8ea65f2ceda747bdfecd3b2db326d0d" ]]
 then
     echo ""
     echo "All good!"
