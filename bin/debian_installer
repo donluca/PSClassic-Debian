@@ -337,8 +337,8 @@ fi
 # Install kernel and Debian rootFS
 echo ""
 echo "It's time to install Debian along with its own kernel."
-echo "After this process has started you can't stop it. If you're having second thoghts, now it's the time to power off."
-sleep 12
+echo "After this process has started please don't power off your Playstation Classic or you'll risk a brick."
+sleep 10
 echo ""
 echo "Alright, let's install the kernel first:"
 echo ""
