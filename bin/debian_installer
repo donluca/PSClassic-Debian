@@ -94,7 +94,7 @@ then
     echo ""
     sleep 5
     umount /gaadata
-    mkfs.ext4 -N 4096 /dev/mmcblk0p9
+    mkfs.ext4 -N `cat /media/backup/inodes` /dev/mmcblk0p9
     mount -o rw /dev/mmcblk0p9 /gaadata
     echo ""
     echo "Done"
@@ -212,7 +212,7 @@ then
         echo "Done formatting the partition, now I'll copy a fresh Debian installation over. This is going to take a long time."
         sleep 5
         echo ""
-        tar -xzvf /media/rootfs/PSCSid.tar.gz -C /gaadata
+        tar -xzvpf /media/rootfs/PSCSid.tar.gz -C /gaadata
         cp -va /media/backup/gaadata/databases /gaadata
         cp -va /media/kernel/debian.img /gaadata
         cp -va /media/kernel/psc.img /gaadata
@@ -283,6 +283,7 @@ fi
 sleep 10
 
 # Backup all the relevant partitions and data, unless NOBACKUP is specified
+df -i | grep -i gaadata | awk '{ print $2 }' > /media/backup/inodes
 echo ""
 if (( `ls /media | grep -i nobackup | wc -l` > 0 ))
 then
@@ -398,7 +399,7 @@ echo "Now the big one: let's install Debian! This is going to take a VERY long t
 echo ""
 sleep 10
 echo ""
-tar -xzvf /media/rootfs/PSCSid.tar.gz -C /gaadata
+tar -xzvpf /media/rootfs/PSCSid.tar.gz -C /gaadata
 cp -va /media/backup/gaadata/databases /gaadata
 cp -va /media/kernel/psc.img /gaadata
 cp -va /media/kernel/debian.img /gaadata
