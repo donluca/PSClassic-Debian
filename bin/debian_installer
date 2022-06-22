@@ -102,6 +102,7 @@ then
     echo "Restoring the games..."
     sleep 5
     echo ""
+    cp -va /media/backup/gaadata/databases /gaadata
     cp -va /media/backup/gaadata/* /gaadata
     if (( $? > 0 )) || (( `df | grep gaadata | awk '{ print $4 }'` > 10000000 ))
     then
@@ -126,7 +127,12 @@ then
         then
             echo "I'll now copy over some files which are essential for the original firmware to boot properly."
             echo ""
-            cp -va /media/backup/databases /gaadata
+            if [[ -d /media/backup/gaadata/databases ]]
+            then
+                cp -va /media/backup/gaadata/databases /gaadata
+            else
+                cp -va /media/backup/databases /gaadata
+            fi
             echo ""
             echo "Done."
         fi
@@ -160,7 +166,7 @@ echo "The installation process will take a long time, most likely more than 1 ho
 echo ""
 echo "Checking the integrity of the installer files (this is going to take several minutes)..."
 echo ""
-if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "515609a9b8ea65f2ceda747bdfecd3b2db326d0d" ]]
+if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "f60d360a9e033940c98c20eb019dfdbe3975874d" ]]
 then
     echo ""
     echo "All good!"
@@ -193,7 +199,7 @@ then
         echo "original games inside your Playstation Classic and this process will erase them without backing them up."
         echo ""
         echo "On the other side, if you really know what you're doing, the process will start after a while (I've put a"
-        echo "60 seconds delay, so count one minute since this message has initially appeared)."
+        echo "1 minute delay, so count one minute since this message has initially appeared)."
         echo ""
         sleep 60
         echo "Ok, let's go. I'll start by unmounting the partition Debian is installed on and formatting it."
@@ -208,6 +214,7 @@ then
         echo ""
         tar -xzvf /media/rootfs/PSCSid.tar.gz -C /gaadata
         cp -va /media/backup/gaadata/databases /gaadata
+        cp -va /media/kernel/debian.img /gaadata
         cp -va /media/kernel/psc.img /gaadata
         sync
         echo ""
@@ -230,7 +237,7 @@ fi
 if [[ -d "/gaadata/bin" ]]
 then
     echo "There's something strange in your game's partition, it looks like you've either installed Debian or another Linux"
-    echo "distribution in there. The backup process would not be able to properly save your installation, henche it is up to"
+    echo "distribution in there. The backup process would not be able to properly save your installation, hence it is up to"
     echo "you to backup whatever is in there first."
     echo ""
     echo "If you still wish to install Debian, create a file or folder named FORCE at the root of this USB drive and plug it"
@@ -284,9 +291,10 @@ then
     echo "This is truly one of the most stupid and risky idea ever, but if you got here, I guess you know"
     echo "what you're doing."
     echo ""
-    echo "I'll put a 1 minute delay here so you can always change your mind and plug the power before the"
+    echo "I'll put a 1 minute delay here so you can still change your mind and plug the power before the"
     echo "installation process continues without backing up your games first."
     sleep 60
+    find /media/ -maxdepth 1 -iname "nobackup" -exec rm -rf {} \;
 else
     echo "We're now going to backup all of your data, make sure to put this USB drive somewhere safe once we're done."
     sleep 5
@@ -393,6 +401,7 @@ echo ""
 tar -xzvf /media/rootfs/PSCSid.tar.gz -C /gaadata
 cp -va /media/backup/gaadata/databases /gaadata
 cp -va /media/kernel/psc.img /gaadata
+cp -va /media/kernel/debian.img /gaadata
 sync
 echo ""
 echo "And we're done!"
