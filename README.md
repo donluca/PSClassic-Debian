@@ -28,7 +28,6 @@ If you're in desperate need of more RAM, you can try using zRAM to better manage
 - **USB drivers are nearly unuseable:** they are so bad that you must be careful about using USB hubs and connecting several devices, otherwise the kernel will panic and the system will freeze. Some devices like USB Audio interfaces won't work properly or at all (at least the ones I have didn't), but, as far as I could tell, USB drives, ethernet/wireless dongles and bluetooth should all work fine. YMMV.
 - **Only 2 USB ports:** as said above, be mindful of connecting several devices through a USB hub.
 - **1080p max:** Considering that the stock firmware runs at 720p (and you can't change it), this is already an improvement. But this is also the max resolution the GPU supports. Don't try going further or you'll get a garbled screen.
-- **No framebuffer console support:** What this means is that you won't be able to see the boot process, the screen will be black and you won't have virtual terminals (don't try hitting CTRL+ALT+F<n> to try and switch to a virtual terminal because the system will freeze).
 - Finally... this is not something for the fainthearted. If you screw up, prepare to know how to access fastboot ( https://www.youtube.com/watch?v=o05HpHTwLuw ) to go to a recoverable state and flash back your original kernel. Bonus points if you're knowledgeable in Linux. If you're feeling scared at this point, messing around with this is probably not what you want to be doing.
   
 ![Firefox](./images/firefox.png)
