@@ -94,7 +94,12 @@ then
     echo ""
     sleep 5
     umount /gaadata
-    mkfs.ext4 -N `cat /media/backup/inodes` /dev/mmcblk0p9
+    if [[ -e /media/backup/inodes ]]
+    then
+        mkfs.ext4 -N `cat /media/backup/inodes` /dev/mmcblk0p9
+    else
+        mkfs.ext4 -N 1792 /dev/mmcblk0p9
+    fi
     mount -o rw /dev/mmcblk0p9 /gaadata
     echo ""
     echo "Done"
@@ -166,7 +171,7 @@ echo "The installation process will take a long time, most likely more than 1 ho
 echo ""
 echo "Checking the integrity of the installer files (this is going to take several minutes)..."
 echo ""
-if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "515609a9b8ea65f2ceda747bdfecd3b2db326d0d" ]]
+if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "2e16b3ec4949c39d143c445eed61818195dec852" ]]
 then
     echo ""
     echo "All good!"
