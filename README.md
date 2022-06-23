@@ -4,11 +4,6 @@
 
 ![Debian](./images/debian.png)
 
-### 30/05/2022 – Important update
-
-I've published a "final test release" which is manily meant for the discord user notv37 in the modmyclassic Discord server, as he's been kindly testing this project while I keep at trying to permanently brick his poor Playstation Classic (so far I've failed, which is a good thing).
-If you want to use v0.9, do it at your own risk because there are a couple things which are still untested, especially the restore routine. Everything else ***should*** work correctly. As always, YMMV.    
-
 ## What is this?
 
 Got a Playstation Classic gathering dust somewhere in your room?  
