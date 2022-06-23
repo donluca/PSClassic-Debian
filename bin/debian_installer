@@ -412,6 +412,8 @@ cp -va /media/backup/gaadata/databases /gaadata
 cp -va /media/kernel/psc.img /gaadata
 cp -va /media/kernel/debian.img /gaadata
 sync
+sleep 1
+umount /gaadata
 echo ""
 echo "And we're done!"
 echo "If you wish to restore your Playstation Classic to stock, please create a file or folder named RESTORE at the root of this USB drive,"
