@@ -95,7 +95,8 @@ To enable MIDI over USB follow those simple steps:
 ## Acknowledgments
 This whole thing has taken more than 1 year to come to this point and it wouldn't have been possible without the work of honeylab ( https://honeylab.hatenablog.jp ) and Project Eris ( https://modmyclassic.com/project-eris/ ) and the infinite patience of several members of the Project Eris Discord, especially notv37, Compcom, Gorsonw and pon.  
 Gorsonw managed to succeed in making the console framebuffer work (although it's a bit wonky and sometimes it kernel panics during boot), which is an impressive feat and something I've miserably failed at despite working on it for an entire month before calling it quits.  
-The hack which this installer is based on is called lolhack and you can find it here: https://github.com/justMaku/gpghax
+The hack which this installer is based on is called lolhack and you can find it here: https://github.com/justMaku/gpghax  
+The Linux kernel sources used to build the custom kernel are available at https://doc.dl.playstation.net/doc/psclassic-oss/Linux-kernel.html
 
 
 And that should cover it.  
