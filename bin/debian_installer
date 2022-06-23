@@ -370,7 +370,10 @@ echo "It's time to erase the games to make space for Debian."
 sleep 5
 echo ""
 umount /gaadata
-dmsetup remove /dev/mapper/gaadata
+if [[ -e /dev/mapper/gaadata ]]
+then
+    dmsetup remove /dev/mapper/gaadata
+fi
 if [[ -e /dev/mapper/gaadata ]] || [[ `df -h | grep -i gaadata` != "" ]]
 then
     echo "Something went wrong when trying to unmount your gaadata partition."
