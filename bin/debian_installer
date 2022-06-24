@@ -174,10 +174,23 @@ echo "If you don't see anything happning on screen for longer than 10 minutes, i
 echo "One of the most likely cause is that you're not using a powered USB hub or your USB drive needs too much power."
 echo "The installation process will take a long time, most likely more than 1 hour, depending on how fast your USB drive is."
 
-# Check if the rootFS is present and not corrupted
+# Check if the rootFS is present and not corrupted along with all the folders needed
 echo ""
 echo "Checking the integrity of the installer files (this is going to take several minutes)..."
 echo ""
+if [[ -d "/media/bin" && -d "/media/kernel" && -d "/media/backup" && -d "/media/backup/kernel" && -d "/media/backup/gaadata" && -d "/media/backup/databases" ]]
+then
+    echo "Folder structure looks good!"
+    echo ""
+else
+    echo "There's something amiss with your folder structure. Please format your USB drive (to FAT32),"
+    echo "re-download the PSCDebian.zip file from Github, and extract its contents to the root of your USB drive"
+    echo "so that at the root you have the various folders such as backup, bin, kernel, etc. Again, they must be" 
+    echo "at the root of your USB drive."
+    echo ""
+    echo "You can now safely power off your Playstation Classic."
+    sleep 365d
+fi
 if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "7b4843ed9cf05b55f44c3e41749fdd713758a67c" ]]
 then
     echo ""
@@ -281,8 +294,15 @@ then
     sleep 365d
 fi
 
-# Check if the usb drive has enough free space
+# Check if the usb drive has been correctly formatted and has enough free space
 echo ""
+if [[ `blkid | grep -i sda1` != *"vfat"* ]]
+then
+    echo "Your drive isn't formatted in FAT32! Please reformat the drive in FAT32 and redo all the process from scratch."
+    echo ""
+    echo "You can now safely power off your Playstation Classic."
+    sleep 365d
+fi
 echo "Let's check how much space free you have on your USB drive. 20GB or more are needed."
 echo ""
 if (( `df | grep sda | awk '{ print $4 }'` < 20000000 ))
