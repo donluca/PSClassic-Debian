@@ -115,8 +115,8 @@ then
     echo "Restoring the games..."
     sleep 5
     echo ""
-    cp -va --no-preserve=ownership /media/backup/gaadata/databases /gaadata
-    cp -va --no-preserve=ownership /media/backup/gaadata/* /gaadata
+    cp -va /media/backup/gaadata/databases /gaadata
+    cp -va /media/backup/gaadata/* /gaadata
     if (( $? > 0 )) || (( `df | grep gaadata | awk '{ print $4 }'` > 10000000 ))
     then
         echo ""
@@ -142,9 +142,9 @@ then
             echo ""
             if [[ -d /media/backup/gaadata/databases ]]
             then
-                cp -va --no-preserve=ownership /media/backup/gaadata/databases /gaadata
+                cp -va /media/backup/gaadata/databases /gaadata
             else
-                cp -va --no-preserve=ownership /media/backup/databases /gaadata
+                cp -va /media/backup/databases /gaadata
             fi
             echo ""
             echo "Done."
@@ -238,10 +238,10 @@ then
         sleep 5
         echo ""
         tar -xzvpf /media/rootfs/PSCSid.tar.gz -C /gaadata
-        cp -va --no-preserve=ownership /media/backup/gaadata/databases /gaadata
-        cp -va --no-preserve=ownership /media/kernel/debian.img /gaadata
-        cp -va --no-preserve=ownership /media/kernel/psc.img /gaadata
-        cp -va --no-preserve=ownership /media/kernel/safe.img /gaadata
+        cp -va /media/backup/gaadata/databases /gaadata
+        cp -va /media/kernel/debian.img /gaadata
+        cp -va /media/kernel/psc.img /gaadata
+        cp -va /media/kernel/safe.img /gaadata
         sync
         echo ""
         echo "It's time to flash the kernel to boot Debian."
@@ -436,10 +436,10 @@ echo ""
 sleep 10
 echo ""
 tar -xzvpf /media/rootfs/PSCSid.tar.gz -C /gaadata
-cp -va --no-preserve=ownership /media/backup/gaadata/databases /gaadata
-cp -va --no-preserve=ownership /media/kernel/psc.img /gaadata
-cp -va --no-preserve=ownership /media/kernel/debian.img /gaadata
-cp -va --no-preserve=ownership /media/kernel/safe.img /gaadata
+cp -va /media/backup/gaadata/databases /gaadata
+cp -va /media/kernel/psc.img /gaadata
+cp -va /media/kernel/debian.img /gaadata
+cp -va /media/kernel/safe.img /gaadata
 sync
 sleep 1
 umount /gaadata
