@@ -42,6 +42,7 @@ fi
 # Restore routine
 if (( `ls /media | grep -i restore | wc -l` > 0 ))
 then
+    find /media/ -maxdepth 1 -iname "restore" -exec rm -rf {} \;
     echo "I've found a file or folder named RESTORE, so I'll restore your Playstation Classic back to stock!"
     echo ""
     echo "If this process goes wrong, it means that you don't have a proper backup on your USB drive and you're basically screwed."
@@ -156,7 +157,6 @@ then
     sync
     echo ""
     echo "All good! You can safely power off now and when you power on you'll be back in your stock Playstation Classic."
-    find /media/ -maxdepth 1 -iname "restore" -exec rm -rf {} \;
     sleep 365d
 fi
 
