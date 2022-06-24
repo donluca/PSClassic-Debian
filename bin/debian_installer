@@ -276,7 +276,7 @@ fi
 
 # Check if there's already a backup in the USB drive. We don't want those to mix up
 echo ""
-if [[ `ls /media/backup/gaadata | wc -l` > 1 ]]
+if [[ `ls /media/backup/gaadata | wc -l` -gt 1 && `ls /media | grep -i nobackup | wc -l` -eq 0 ]]
 then
     echo "There's something already inside your backup folder on your USB drive, maybe an old or incomplete/corrupted backup?"
     echo ""
