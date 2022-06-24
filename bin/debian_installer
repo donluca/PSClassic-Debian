@@ -82,11 +82,18 @@ then
     then
         echo ""
         echo "Something went wrong when trying to restore your original kernel. Has your original backup gone bad?"
+        echo "Please check that you have the backed up kernel named orig_kernel.img in the backup/kernel folder"
+        echo "in your USB drive and try again."
+        echo ""
         echo "I'll flash a Debian kernel which will still boot into your stock Playstation Classic."
         sleep 10
         echo ""
         ddrescue --force /media/kernel/psc.img /dev/mmcblk0p1
         echo ""
+        echo "Done"
+        echo ""
+        echo "You can now safely power off your Playstation Classic"
+        sleep 365d
     fi
     echo "Done."
     echo ""
