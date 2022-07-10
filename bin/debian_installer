@@ -240,7 +240,7 @@ then
         tar -xzvpf /media/rootfs/PSCSid.tar.gz -C /gaadata
         cp -va /media/backup/gaadata/databases /gaadata
         cp -va /media/kernel/debian.img /gaadata
-        cp -va /media/kernel/psc.img /gaadata
+        cp -va /media/backup/kernel/orig_kernel.img /gaadata/psc.img
         cp -va /media/kernel/bootscreen.img /gaadata
         sync
         echo ""
@@ -437,7 +437,7 @@ sleep 10
 echo ""
 tar -xzvpf /media/rootfs/PSCSid.tar.gz -C /gaadata
 cp -va /media/backup/gaadata/databases /gaadata
-cp -va /media/kernel/psc.img /gaadata
+cp -va /media/backup/kernel/orig_kernel.img /gaadata/psc.img
 cp -va /media/kernel/debian.img /gaadata
 cp -va /media/kernel/bootscreen.img /gaadata
 sync
