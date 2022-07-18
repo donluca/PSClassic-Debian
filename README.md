@@ -56,6 +56,7 @@ If you're in desperate need of more RAM, you can try using zRAM to better manage
 - From /project_eris/004_debian.json  to the Project Eris USB Drive /project_eris/etc/boot_menu/boot_items"
 - From /project_eris/DB.png  to the Project Eris USB Drive /project_eris/etc/project_eris/IMG"
 - From /project_eris/DB_Hover.png  to the Project Eris USB Drive /project_eris/etc/project_eris/IMG"
+- From /project_eris/debian  to the Project Eris USB Drive /project_eris/bin"
 - From /kernel/debian.img  to the Project Eris USB Drive /project_eris/kernel"
 
 ## Extra functions
