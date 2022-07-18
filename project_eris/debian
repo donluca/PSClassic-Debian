@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/test.coreutils -f /gaadata/psc.img && /bin/dd if=/media/project_eris/kernel/debian.img of=/dev/mmcblk0p1
