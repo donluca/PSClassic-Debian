@@ -25,16 +25,75 @@ echo ""
 echo "This software comes with ABSOLUTELY NO WARRANTY, to the extent permitted by applicable law."
 echo ""
 
+# Check if user just wants a shell
+if (( `ls /media | grep -i shell | wc -l` > 0 ))
+then
+    find /media/ -maxdepth 1 -iname "boot" -exec rm -rf {} \;
+    echo "I've found a file or folder named SHELL, so I'll just give you a shell to play with!"
+    echo "Be careful of what you do, you're root user."
+    echo "Also, you're going to need a keyboard. Duh."
+    echo "Have fun."
+    echo ""
+fi
+
+# Flash a custom kernel
+if (( `ls /media | grep -i flash | wc -l` > 0 ))
+then
+    find /media/ -maxdepth 1 -iname "flash" -exec rm -rf {} \;
+    echo "I've found a file or folder named FLASH, so I'll flash your custom kernel!"
+    echo ""
+    if [[ ! -e /media/backup/kernel/orig_kernel.img ]]
+    then
+        echo "Let's first backup your current kernel in case something goes wrong!"
+        echo ""
+        ddrescue /dev/mmcblk0p1 /media/backup/kernel/orig_kernel.img
+        echo ""
+        echo "Done."
+        echo ""
+        sleep 5
+    fi
+    if [[ -e /media/kernel/custom.img ]]
+    then
+        ddrescue --force /media/kernel/custom.img /dev/mmcblk0p1
+        echo ""
+        if (( $? > 0 ))
+        then
+            echo "Something went wrong when trying to flash the custom kernel."
+            echo "To prevent screwing up your current installation, the process has been halted and your original kernel is going to be restored."
+            sleep 10
+            echo ""
+            ddrescue --force /media/backup/kernel/orig_kernel.img /dev/mmcblk0p1
+            echo ""
+            echo "Kernel reverted to stock. You can now safely power off."
+            echo ""
+            sleep 365d
+        else
+            echo "Custom kernel flashed! You can safely power off now."
+            echo ""
+            sleep 365d
+        fi
+
+    else
+        echo "I coudln't find your custom kernel! Make sure you put it into the kernel folder in your USB drive and named it custom.img!"
+        echo ""
+        echo "Nothing else to do, you can safely power off."
+        echo ""
+        sleep 365d
+    fi
+    sleep 15
+    reboot
+fi
+
 # Boot to Debian routine
 if (( `ls /media | grep -i boot | wc -l` > 0 ))
 then
+    find /media/ -maxdepth 1 -iname "boot" -exec rm -rf {} \;
     echo "I've found a file or folder named BOOT, so I'll just reboot you into Debian!"
     echo ""
     ddrescue --force /media/kernel/debian.img /dev/mmcblk0p1
     echo ""
     echo "Done! Remember to unplug this USB drive *after* the Playstation Classic reboots!"
     echo "Rebooting in 15 seconds"  
-    find /media/ -maxdepth 1 -iname "boot" -exec rm -rf {} \;
     sleep 15
     reboot
 fi
@@ -42,7 +101,8 @@ fi
 # Restore routine
 if (( `ls /media | grep -i restore | wc -l` > 0 ))
 then
-    find /media/ -maxdepth 1 -iname "restore" -exec rm -rf {} \;
+    
+    / -maxdepth 1 -iname "restore" -exec rm -rf {} \;
     echo "I've found a file or folder named RESTORE, so I'll restore your Playstation Classic back to stock!"
     echo ""
     echo "If this process goes wrong, it means that you don't have a proper backup on your USB drive and you're basically screwed."
@@ -64,6 +124,7 @@ then
             echo "You can power off now."
             sleep 365d
         else
+            find /media/ -maxdepth 1 -iname "frestore" -exec rm -rf {} \;
             echo "You have chosen to force a backup restore. I hope you know what you're doing."
             echo "Your Debian installation will be wiped and the seemingly corrupt (or non-existent) backup"
             echo "is going to be restored to your game partition."
@@ -72,7 +133,6 @@ then
             echo "so you can still unplug the power and nothing will happen."
             echo ""
             sleep 60
-            find /media/ -maxdepth 1 -iname "frestore" -exec rm -rf {} \;
         fi
     fi
     echo "Restoring original kernel..."
@@ -214,6 +274,7 @@ if [[ -e "/gaadata/psc.img" ]]
 then
     if (( `ls /media | grep -i force | wc -l` > 0 ))
     then
+        find /media/ -maxdepth 1 -iname "force" -exec rm -rf {} \;
         echo "I've found a file or folder named FORCE, so I'll force a new installation of Debian over your current one!"
         echo ""
         echo "You have chosen to remove your current Debian installation and put a new, fresh one in its place."
@@ -249,7 +310,6 @@ then
         ddrescue --force /media/kernel/debian.img /dev/mmcblk0p1
         echo ""
         echo "Finished re-installing Debian. You can now poweroff your Playstation Classic safely."
-        find /media/ -maxdepth 1 -iname "force" -exec rm -rf {} \;
         sleep 365d
     fi
     echo "It looks like Debian is already installed!"
@@ -320,6 +380,7 @@ df -i | grep -i gaadata | awk '{ print $2 }' > /media/backup/inodes
 echo ""
 if (( `ls /media | grep -i nobackup | wc -l` > 0 ))
 then
+    find /media/ -maxdepth 1 -iname "nobackup" -exec rm -rf {} \;
     echo "I've found a file or folder named NOBACKUP, so I'll skip the entire backup process."
     echo ""
     echo "This is truly one of the most stupid and risky idea ever, but if you got here, I guess you know"
@@ -328,7 +389,6 @@ then
     echo "I'll put a 1 minute delay here so you can still change your mind and plug the power before the"
     echo "installation process continues without backing up your games first."
     sleep 60
-    find /media/ -maxdepth 1 -iname "nobackup" -exec rm -rf {} \;
 else
     echo "We're now going to backup all of your data, make sure to put this USB drive somewhere safe once we're done."
     sleep 5
