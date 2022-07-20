@@ -354,7 +354,7 @@ then
     sleep 365d
 fi
 
-# Check if the usb drive has been correctly formatted and has enough free space
+# Check if the usb drive has been correctly formatted
 echo ""
 if [[ `blkid | grep -i sda1` != *"vfat"* ]]
 then
@@ -363,17 +363,6 @@ then
     echo "You can now safely power off your Playstation Classic."
     sleep 365d
 fi
-echo "Let's check how much space free you have on your USB drive. 20GB or more are needed."
-echo ""
-if (( `df | grep sda | awk '{ print $4 }'` < 20000000 ))
-then
-    echo "You don't have enough space free on your USB drive (at least 20GB are needed)."
-    echo "Please poweroff your Playstation Classic and use a bigger USB drive or free enough space."
-    sleep 365d
-else
-    echo "You have enough free space, we can go to the next step."
-fi
-sleep 10
 
 # Backup all the relevant partitions and data, unless NOBACKUP is specified
 df -i | grep -i gaadata | awk '{ print $2 }' > /media/backup/inodes
@@ -390,6 +379,17 @@ then
     echo "installation process continues without backing up your games first."
     sleep 60
 else
+    echo "Let's check how much space free you have on your USB drive. 20GB or more are needed."
+    echo ""
+    if (( `df | grep sda | awk '{ print $4 }'` < 20000000 ))
+    then
+        echo "You don't have enough space free on your USB drive (at least 20GB are needed)."
+        echo "Please poweroff your Playstation Classic and use a bigger USB drive or free enough space."
+        sleep 365d
+    else
+        echo "You have enough free space, we can go to the next step."
+    fi
+    sleep 10
     echo "We're now going to backup all of your data, make sure to put this USB drive somewhere safe once we're done."
     sleep 5
     echo ""
