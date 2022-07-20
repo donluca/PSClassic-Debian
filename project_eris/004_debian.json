@@ -1,5 +1,5 @@
 {
   "texture":"DB.png",
   "hoverTexture":"DB_Hover.png",
-  "launchCommand":"sh /media/project_eris/bin/debian"
+  "launchCommand":"/bin/dd if=/gaadata/debian.img of=/dev/mmcblk0p1"
 }
