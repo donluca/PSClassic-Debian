@@ -288,9 +288,14 @@ then
         echo "1 minute delay, so count one minute since this message has initially appeared)."
         echo ""
         sleep 60
-        echo "Ok, let's go. I'll start by unmounting the partition Debian is installed on and formatting it."
+        echo "Ok, let's go. I'll start by backing up a couple of important files, then unmounting the partition Debian"
+        echo "is installed on and formatting it."
         sleep 5
         echo ""
+        mkdir /media/backup/tmp
+        cp -va /gaadata/databases /media/backup/tmp/
+        cp -va /gaadata/preferences /media/backup/tmp/
+        cp -va /gaadata/psc.img /media/backup/tmp/
         umount /gaadata
         mkfs.ext4 /dev/mmcblk0p9
         mount -o rw /dev/mmcblk0p9 /gaadata
@@ -300,9 +305,23 @@ then
         echo ""
         tar -xzvpf /media/rootfs/PSCSid.tar.gz -C /gaadata
         cp -va /media/backup/gaadata/databases /gaadata
-        cp -va /media/kernel/debian.img /gaadata
+        if (( $? > 0 )); then cp -va /media/backup/tmp/databases /gaadata; fi
+        cp -va /media/backup/gaadata/preferences /gaadata
+        if (( $? > 0 )); then cp -va /media/backup/tmp/preferences /gaadata; fi
         cp -va /media/backup/kernel/orig_kernel.img /gaadata/psc.img
-        cp -va /media/kernel/bootscreen.img /gaadata
+        if (( $? > 0 ))
+        then 
+            cp -va /media/backup/tmp/psc.img /gaadata
+            if (( $? > 0 ))
+            then
+                echo "I couldn't find any backup of your original kernel! I'll make one right now and put it into Debian's root folder."
+                echo ""
+                ddrescue /dev/mmcblk0p1 /gaadata/psc.img
+                echo ""
+            fi
+        fi
+        cp -va /media/kernel/debian.img /gaadata
+        rm -rf /media/backup/tmp
         sync
         echo ""
         echo "It's time to flash the kernel to boot Debian."
