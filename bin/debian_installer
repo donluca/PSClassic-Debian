@@ -34,6 +34,7 @@ then
     echo "Also, you're going to need a keyboard. Duh."
     echo "Have fun."
     echo ""
+    killall debian_installer
 fi
 
 # Flash a custom kernel
