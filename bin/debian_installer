@@ -28,7 +28,7 @@ echo ""
 # Check if user just wants a shell
 if (( `ls /media | grep -i shell | wc -l` > 0 ))
 then
-    find /media/ -maxdepth 1 -iname "boot" -exec rm -rf {} \;
+    find /media/ -maxdepth 1 -iname "shell" -exec rm -rf {} \;
     echo "I've found a file or folder named SHELL, so I'll just give you a shell to play with!"
     echo "Be careful of what you do, you're root user."
     echo "Also, you're going to need a keyboard. Duh."
