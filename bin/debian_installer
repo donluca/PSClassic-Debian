@@ -103,7 +103,7 @@ fi
 if (( `ls /media | grep -i restore | wc -l` > 0 ))
 then
     
-    / -maxdepth 1 -iname "restore" -exec rm -rf {} \;
+    find /media/ -maxdepth 1 -iname "restore" -exec rm -rf {} \;
     echo "I've found a file or folder named RESTORE, so I'll restore your Playstation Classic back to stock!"
     echo ""
     echo "If this process goes wrong, it means that you don't have a proper backup on your USB drive and you're basically screwed."
