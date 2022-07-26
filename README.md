@@ -105,4 +105,11 @@ And that should cover it.
 Also **PLEASE** don't open issues here related to "how do I do this on Debian".  
 This Debian installation is almost identical (excpet it runs on ARM and not on x86) to what you'd find on a normal PC so just Google your issue or search on StackOverflow.  
 
-Thank you for your understanding and happy tinkering!
+## What's next?
+There will be no more work on this project (at least from my part) because the limitations due to the borked (and outdated) kernel we have would make any effort worthless.  
+The next logical step would be trying to get mainline kernel working on the PSC to finally have proper USB drivers, video acceleration, etc. and there's already support for the MT8167 platform.
+I've already tried my hand at using mainline kernel and it "works" in the sense that it boots but then it just stops dead because it's unable to detect the internal eMMC, the USB ports, the HDMI output... everything.  
+If there's anyone out there who wants to bring this work to the next level, please consider focusing your efforts in making mainline kernel work because that would unlock the full potential of the Playstation Classic.
+Once we have proper GPU support and proper USB drivers, this thing is really going to fly.  
+
+Until then, thank you for trying this proof of concept out and happy tinkering!
