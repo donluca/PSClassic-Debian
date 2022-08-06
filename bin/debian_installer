@@ -252,7 +252,7 @@ else
     echo "You can now safely power off your Playstation Classic."
     sleep 365d
 fi
-if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "f634a84ddfcd32d114d505a6c26d480fcde50f97" ]]
+if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "7149648ba9d35f7d66b18ed99ec58193f8d258b7" ]]
 then
     echo ""
     echo "All good!"
@@ -323,6 +323,8 @@ then
         fi
         cp -va /media/kernel/debian.img /gaadata
         rm -rf /media/backup/tmp
+        # A little patch for an error I did
+        echo "nameserver 1.1.1.1" > /gaadata/etc/resolv.conf
         sync
         echo ""
         echo "It's time to flash the kernel to boot Debian."
@@ -511,6 +513,8 @@ cp -va /media/backup/gaadata/databases /gaadata
 cp -va /media/backup/gaadata/preferences /gaadata
 cp -va /media/backup/kernel/orig_kernel.img /gaadata/psc.img
 cp -va /media/kernel/debian.img /gaadata
+# A little patch for an error I did
+echo "nameserver 1.1.1.1" > /gaadata/etc/resolv.conf
 sync
 sleep 1
 umount /gaadata
