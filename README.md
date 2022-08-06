@@ -76,6 +76,7 @@ Anyway... there's some stuff which may go wrong (there always is) so here we go.
 ## You don't really need an USB network adapter
 Debian on Playstation Classic has an RNDIS network interface enabled by default which works via USB.  
 Instead of connecting the Playstation Classic to a wall charger to power it, connect it to a **good** (ie: that can provide enough power) USB port on your PC/Mac and once Debian has booted, you'll find a new network interface on Windows/Mac named "Android". You can use it to connect to the Playstation Classic in several ways (for example via SSH) and you can also give the Playstation Classic internet access through it. Bear in mind that the RNDIS interface has no DHCP server working on it, so it will have an auto-assigned IP unless your PC is serving an IP address. If you have issues communicating between your PC and the PSC, just set static IP addresses to both in the same subnet (ie: your PC 192.168.42.1 and your PSC 192.168.42.2, both subnet 255.255.255.0)  
+On Windows you're going to need drivers to make the RNDIS ethernet adapter appear, you can get them from here: https://evwiki.ensto.technology/display/CHWI/Install+RNDIS+Driver+for+Windows+to+be+able+to+connect+to+charge+controller  
 
 ## Use it as a USB Roland MT-32/General MIDI/MIDI box Emulator
   
