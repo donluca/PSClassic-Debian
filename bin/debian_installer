@@ -323,8 +323,6 @@ then
         fi
         cp -va /media/kernel/debian.img /gaadata
         rm -rf /media/backup/tmp
-        # A little patch for an error I did
-        echo "nameserver 1.1.1.1" > /gaadata/etc/resolv.conf
         sync
         echo ""
         echo "It's time to flash the kernel to boot Debian."
@@ -513,8 +511,6 @@ cp -va /media/backup/gaadata/databases /gaadata
 cp -va /media/backup/gaadata/preferences /gaadata
 cp -va /media/backup/kernel/orig_kernel.img /gaadata/psc.img
 cp -va /media/kernel/debian.img /gaadata
-# A little patch for an error I did
-echo "nameserver 1.1.1.1" > /gaadata/etc/resolv.conf
 sync
 sleep 1
 umount /gaadata
