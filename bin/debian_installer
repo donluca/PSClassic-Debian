@@ -252,7 +252,7 @@ else
     echo "You can now safely power off your Playstation Classic."
     sleep 365d
 fi
-if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "2e64a1a0b603de4c013ef982ab41523c585b8e4a" ]]
+if [[ -e "/media/rootfs/PSCSid.tar.gz" ]] && [[ `pv -pterb /media/rootfs/PSCSid.tar.gz | sha1sum | awk '{ print $1 }'` == "644cdcf9f594fcae2968b1f2f94add4ca63259c0" ]]
 then
     echo ""
     echo "All good!"
