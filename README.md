@@ -9,7 +9,7 @@
 Got a Playstation Classic gathering dust somewhere in your room?  
 Nice, you can now transform it in a fully fledged Debian Linux PC rocking the LXQt Desktop Environment!  
 The hardware in the Playstation Classic isn't half bad, the Mediatek MT8167 gives us 4 cores of ARM Cortex A35 which are right up the alley of a Raspberry Pi 3, along with 1GB of RAM and 16GB of eMMC which are both a bit limiting, but not the end of the world.  
-There's also a very capable GPU, but we don't talk about that here.
+There's also a very capable GPU which has been the bane of my existence, hence we don't talk about that here.
 
 ## Limitations and issues
 
@@ -97,7 +97,7 @@ To enable MIDI over USB follow those simple steps:
 - Finally, one last note: the Playstation Classic has only one HDMI output which means that audio will come out of the HDMI connector in digital form. You can either connect your monitor's headphone/line output to the input of the monitor you're playing on (or your stereo system) or use an HDMI Audio extractor dongle which will let you grab analog audio from the HDMI connector and, from there, redirect it anywhere you want. Some more advanced TVs may also have internal audio routing; so, say you have the Playstation Classic on HDMI1 input and your main PC/MiSTer/whatever outputting on HDMI2, you may be able to route internally HDMI1 audio to HDMI2. As always, YMMV.
 
 ## Acknowledgments
-This whole thing has taken more than 1 year to come to this point and it wouldn't have been possible without the work of honeylab ( https://honeylab.hatenablog.jp ) and Project Eris ( https://modmyclassic.com/project-eris/ ) and the infinite patience of several members of the Project Eris Discord, especially notv37, Compcom, Gorsonw and pon.  
+This whole thing has taken more than 2 years to come to this point and it wouldn't have been possible without the work of honeylab ( https://honeylab.hatenablog.jp ) and Project Eris ( https://modmyclassic.com/project-eris/ ) and the infinite patience of several members of the Project Eris Discord, especially notv37, Compcom, Gorsonw, pon and WavApps.  
 Gorsonw managed to succeed in making the console framebuffer work (although it's a bit wonky and sometimes it kernel panics during boot), which is an impressive feat and something I've miserably failed at despite working on it for an entire month before calling it quits.  
 The hack which this installer is based on is called lolhack and you can find it here: https://github.com/justMaku/gpghax  
 The Linux kernel sources used to build the custom kernel are available at https://doc.dl.playstation.net/doc/psclassic-oss/Linux-kernel.html
