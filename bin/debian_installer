@@ -297,6 +297,7 @@ then
         cp -va /gaadata/databases /media/backup/tmp/
         cp -va /gaadata/preferences /media/backup/tmp/
         cp -va /gaadata/psc.img /media/backup/tmp/
+        sync
         umount /gaadata
         mkfs.ext4 /dev/mmcblk0p9
         mount -o rw /dev/mmcblk0p9 /gaadata
