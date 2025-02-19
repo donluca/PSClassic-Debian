@@ -13,6 +13,8 @@ There's also a very capable GPU which has been the bane of my existence, hence w
 
 ## Limitations and issues
 
+(2025/02/19) - As of 19th February 2025, it is now unadvisable to update Debian as it may result in a non-bootable PSC.
+
 - **YOUR GAME PARTITION WILL BE BACKED UP AND ERASED, YOU WON'T HAVE YOUR GAMES ON INTERNAL MEMORY ANYMORE BECAUSE THAT'S WHERE DEBIAN WILL LIVE IN YOUR PLAYSTATION CLASSIC. DESPITE THIS YOU'LL BE ABLE TO GO BACK TO STOCK AT ANY TIME (read on...)**
 - **It is currently untested on the Japanese version of the Playstation Classic (and those sold in Taiwan and Hong Kong).** There could be a small issue when restoring the games. You won't lose them, but you might find that one of the games won't be restored correctly. Testers needed. If you own a JAP PSC, please try to install Debian, restore to stock and report back.
 - **1GB of RAM:** this will allow you to run very few things at a time. There's no swap memory because putting swap on non-replaceable eMMC storage is a VERY BAD IDEA™.
